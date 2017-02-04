@@ -29,7 +29,7 @@ public final class DataParameter
 
         String name = "data";
         String type = "body";
-        SwaggerSchema schema = SwaggerSchema.fromClass(clazz);
+        SwaggerSchema schema = SwaggerSchema.fromClass(clazz, annotations);
         String defaultValue = annotations.defaultValue();
         String description = annotations.description();
 

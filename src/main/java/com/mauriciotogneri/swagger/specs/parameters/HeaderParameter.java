@@ -46,7 +46,7 @@ public final class HeaderParameter
         return new SwaggerParameter(
                 name,
                 "header",
-                SwaggerSchema.fromClass(clazz),
+                SwaggerSchema.fromClass(clazz, new Annotations(clazz)),
                 valueList(),
                 !optional,
                 description);

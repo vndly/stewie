@@ -17,7 +17,7 @@ public final class SwaggerResponse
     public SwaggerResponse(Integer code, Class<?> clazz, Class<?> headers, String description)
     {
         this.code = code;
-        this.schema = clazz.equals(Object.class) ? null : SwaggerSchema.fromClass(clazz);
+        this.schema = clazz.equals(Object.class) ? null : SwaggerSchema.fromClass(clazz, new Annotations(clazz));
         this.headers = headers.equals(Object.class) ? null : headers(headers);
         this.description = description;
     }
@@ -36,7 +36,7 @@ public final class SwaggerResponse
             Annotations annotations = new Annotations(field);
 
             String name = annotations.name();
-            SwaggerSchema schema = SwaggerSchema.fromClass(field.getType());
+            SwaggerSchema schema = SwaggerSchema.fromClass(field.getType(), new Annotations(field));
             String description = annotations.description();
 
             result.put(name, new SwaggerHeaderResponse(schema.type(), schema.format(), description));

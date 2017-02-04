@@ -17,6 +17,7 @@ import com.mauriciotogneri.swagger.annotations.endpoint.Optional;
 import com.mauriciotogneri.swagger.annotations.endpoint.Parameters;
 import com.mauriciotogneri.swagger.annotations.endpoint.Response;
 import com.mauriciotogneri.swagger.annotations.endpoint.Responses;
+import com.mauriciotogneri.swagger.annotations.fields.Minimum;
 
 import java.util.Date;
 
@@ -99,6 +100,7 @@ public interface SampleEndPoint
     class ParametersPath
     {
         @Description("The resource id")
+        @Minimum(1)
         public Long id;
     }
 

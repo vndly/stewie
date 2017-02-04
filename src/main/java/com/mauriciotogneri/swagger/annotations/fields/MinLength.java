@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @Documented
-public @interface Variable
+public @interface MinLength
 {
-    Class<?>[] value();
+    int value();
 }
