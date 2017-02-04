@@ -16,6 +16,8 @@ import com.mauriciotogneri.swagger.annotations.endpoint.Parameters;
 import com.mauriciotogneri.swagger.annotations.endpoint.Path;
 import com.mauriciotogneri.swagger.annotations.endpoint.Response;
 
+import java.util.Date;
+
 import static com.mauriciotogneri.swagger.types.Header.CONTENT_TYPE;
 import static com.mauriciotogneri.swagger.types.Header.COOKIE;
 import static com.mauriciotogneri.swagger.types.HttpCode.BAD_REQUEST;
@@ -82,6 +84,15 @@ public interface SampleEndPoint
     {
         @Description("The filter switch")
         public Boolean filter;
+
+        @Description("The date to filter")
+        public Date date;
+
+        @Description("The limit to filter")
+        public Double limit;
+
+        @Description("The gender to filter")
+        public Gender gender;
     }
 
     class ParametersData
@@ -105,5 +116,11 @@ public interface SampleEndPoint
         public String fistName;
 
         public String lastName;
+    }
+
+    enum Gender
+    {
+        MALE,
+        FEMALE
     }
 }

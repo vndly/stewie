@@ -6,9 +6,8 @@ import com.mauriciotogneri.swagger.annotations.endpoint.Description;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 import com.mauriciotogneri.swagger.model.SwaggerType;
 
-import org.joda.time.DateTime;
-
 import java.lang.reflect.Field;
+import java.util.Date;
 
 public class BaseParameter
 {
@@ -56,8 +55,8 @@ public class BaseParameter
                 (clazz.equals(Long.class) || clazz.equals(long.class)) ||
                 (clazz.equals(Float.class) || clazz.equals(float.class)) ||
                 (clazz.equals(Double.class) || clazz.equals(double.class)) ||
-                (clazz.equals(DateTime.class)) ||
-                (clazz.equals(Enum.class))
+                (clazz.equals(Date.class)) ||
+                (clazz.isEnum())
         );
     }
 

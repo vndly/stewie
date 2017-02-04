@@ -1,6 +1,6 @@
 package com.mauriciotogneri.swagger.model;
 
-import org.joda.time.DateTime;
+import java.util.Date;
 
 public final class SwaggerType
 {
@@ -103,11 +103,11 @@ public final class SwaggerType
         {
             return SwaggerType.doubleType(description);
         }
-        else if (clazz.equals(DateTime.class))
+        else if (clazz.equals(Date.class))
         {
             return SwaggerType.dateTimeType(description);
         }
-        else if (clazz.equals(Enum.class))
+        else if (clazz.isEnum())
         {
             Object[] constants = clazz.getEnumConstants();
 
