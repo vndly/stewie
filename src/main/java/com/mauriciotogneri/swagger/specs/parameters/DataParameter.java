@@ -3,6 +3,7 @@ package com.mauriciotogneri.swagger.specs.parameters;
 import com.mauriciotogneri.swagger.annotations.endpoint.Default;
 import com.mauriciotogneri.swagger.annotations.endpoint.Description;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
+import com.mauriciotogneri.swagger.specs.Schema;
 
 public final class DataParameter extends BaseParameter
 {
@@ -27,9 +28,10 @@ public final class DataParameter extends BaseParameter
     {
         String name = "data";
         String type = "body";
+        Schema schema = Schema.fromClass(clazz);
         String defaultValue = defaultValue(clazz.getAnnotation(Default.class));
         String description = description(clazz.getAnnotation(Description.class));
 
-        return parameter(name, type, false, clazz, defaultValue, description);
+        return parameter(name, type, false, schema, defaultValue, description);
     }
 }

@@ -93,6 +93,7 @@ public interface SampleEndPoint
     class ResponseHeaders
     {
         @Name("Token")
+        @Description("The authentication token")
         public String token;
     }
 

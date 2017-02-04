@@ -1,37 +1,23 @@
 package com.mauriciotogneri.swagger.specs.parameters;
 
-import com.google.gson.JsonObject;
 import com.mauriciotogneri.swagger.annotations.endpoint.Default;
 import com.mauriciotogneri.swagger.annotations.endpoint.Description;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
-import com.mauriciotogneri.swagger.specs.EntityType;
+import com.mauriciotogneri.swagger.specs.Schema;
 
 import java.lang.reflect.Field;
 
 public class BaseParameter
 {
-    protected SwaggerParameter parameter(String name, String type, Boolean optional, Class<?> clazz, String defaultValue, String description)
+    protected SwaggerParameter parameter(String name, String type, Boolean optional, Schema schema, String defaultValue, String description)
     {
-        if (EntityType.isBasicType(clazz))
-        {
-            return new SwaggerParameter(
-                    name,
-                    type,
-                    EntityType.fromClass(clazz),
-                    !optional,
-                    defaultValue,
-                    description);
-        }
-        else
-        {
-            return new SwaggerParameter(
-                    name,
-                    type,
-                    schema(clazz),
-                    !optional,
-                    defaultValue,
-                    description);
-        }
+        return new SwaggerParameter(
+                name,
+                type,
+                schema,
+                defaultValue,
+                !optional,
+                description);
     }
 
     protected String defaultValue(Field field)
@@ -54,10 +40,5 @@ public class BaseParameter
     protected String description(Description annotation)
     {
         return (annotation != null) ? annotation.value() : null;
-    }
-
-    protected JsonObject schema(Class<?> clazz)
-    {
-        return new JsonObject(); // TODO
     }
 }

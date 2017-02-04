@@ -2,6 +2,7 @@ package com.mauriciotogneri.swagger.specs.parameters;
 
 import com.mauriciotogneri.swagger.annotations.endpoint.Optional;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
+import com.mauriciotogneri.swagger.specs.Schema;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -25,13 +26,12 @@ public class FieldParameter extends BaseParameter
         for (Field field : clazz.getDeclaredFields())
         {
             String name = field.getName();
-            String type = kind;
             Boolean optional = optional(field);
-            Class<?> clazz = field.getType();
+            Schema schema = Schema.fromClass(field.getType());
             String defaultValue = defaultValue(field);
             String description = description(field);
 
-            parameters.add(parameter(name, type, optional, clazz, defaultValue, description));
+            parameters.add(parameter(name, kind, optional, schema, defaultValue, description));
         }
 
         return parameters;
