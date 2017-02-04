@@ -1,6 +1,5 @@
 package com.mauriciotogneri.swagger.specs.parameters;
 
-import com.mauriciotogneri.swagger.annotations.endpoint.Optional;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 import com.mauriciotogneri.swagger.model.SwaggerSchema;
 import com.mauriciotogneri.swagger.utils.Annotations;
@@ -29,7 +28,7 @@ public class FieldParameter
             Annotations annotations = new Annotations(field);
 
             String name = field.getName();
-            Boolean optional = optional(field);
+            Boolean optional = optional(annotations);
             SwaggerSchema schema = SwaggerSchema.fromClass(field.getType());
             String defaultValue = annotations.defaultValue();
             String description = annotations.description();
@@ -46,8 +45,8 @@ public class FieldParameter
         return parameters;
     }
 
-    protected Boolean optional(Field field)
+    protected Boolean optional(Annotations annotations)
     {
-        return field.isAnnotationPresent(Optional.class);
+        return annotations.optional();
     }
 }

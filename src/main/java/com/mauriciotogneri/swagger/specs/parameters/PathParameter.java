@@ -1,6 +1,6 @@
 package com.mauriciotogneri.swagger.specs.parameters;
 
-import java.lang.reflect.Field;
+import com.mauriciotogneri.swagger.utils.Annotations;
 
 public final class PathParameter extends FieldParameter
 {
@@ -10,7 +10,7 @@ public final class PathParameter extends FieldParameter
     }
 
     @Override
-    protected Boolean optional(Field field)
+    protected Boolean optional(Annotations annotations)
     {
         return false;
     }

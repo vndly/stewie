@@ -18,7 +18,7 @@ public final class SwaggerResponse
     {
         this.code = code;
         this.schema = clazz.equals(Object.class) ? null : SwaggerSchema.fromClass(clazz);
-        this.headers = clazz.equals(Object.class) ? null : headers(headers);
+        this.headers = headers.equals(Object.class) ? null : headers(headers);
         this.description = description;
     }
 

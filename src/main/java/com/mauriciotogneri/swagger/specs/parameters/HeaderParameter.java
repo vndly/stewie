@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 public final class HeaderParameter
 {
     private final String name;
-    private final String[] value;
+    private final String[] defaultValue;
     private final Class<?> clazz;
     private final Boolean optional;
     private final String description;
@@ -20,7 +20,7 @@ public final class HeaderParameter
         Annotations annotations = new Annotations(field);
 
         this.name = annotations.name();
-        this.value = field.isAnnotationPresent(Default.class) ? field.getAnnotation(Default.class).value() : new String[0];
+        this.defaultValue = field.isAnnotationPresent(Default.class) ? field.getAnnotation(Default.class).value() : new String[0];
         this.clazz = field.getType();
         this.optional = annotations.optional();
         this.description = annotations.description();
@@ -31,14 +31,14 @@ public final class HeaderParameter
         return type.equals(name);
     }
 
-    public String[] value()
+    public String[] defaultValue()
     {
-        return value;
+        return defaultValue;
     }
 
     private String valueList()
     {
-        return (value.length != 0) ? String.join("; ", value) : null;
+        return (defaultValue.length != 0) ? String.join("; ", defaultValue) : null;
     }
 
     public SwaggerParameter swaggerParameter()

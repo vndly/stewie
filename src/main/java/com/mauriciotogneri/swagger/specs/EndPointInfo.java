@@ -107,7 +107,7 @@ public final class EndPointInfo
         {
             if (headerParameter.is(Header.CONTENT_TYPE))
             {
-                return headerParameter.value();
+                return headerParameter.defaultValue();
             }
         }
 
