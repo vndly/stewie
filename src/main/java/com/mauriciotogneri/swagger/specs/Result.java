@@ -6,7 +6,7 @@ public class Result
 {
     private final Integer code;
     private final String[] produces;
-    private final Class<?>[] types;
+    private final Class<?> type;
     private final Class<?> headers;
     private final String description;
 
@@ -14,7 +14,7 @@ public class Result
     {
         this.code = responses.code();
         this.produces = responses.produces();
-        this.types = responses.type();
+        this.type = responses.type();
         this.headers = responses.headers();
         this.description = responses.description();
     }
@@ -29,9 +29,9 @@ public class Result
         return produces;
     }
 
-    public Class<?>[] types()
+    public Class<?> type()
     {
-        return types;
+        return type;
     }
 
     public Class<?> headers()

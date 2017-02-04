@@ -8,7 +8,6 @@ import com.mauriciotogneri.app.api.auth.SampleEndPoint.RequestHeaders;
 import com.mauriciotogneri.app.api.auth.SampleEndPoint.ResponseHeaders;
 import com.mauriciotogneri.app.model.Error;
 import com.mauriciotogneri.app.model.Gender;
-import com.mauriciotogneri.app.model.Person;
 import com.mauriciotogneri.app.model.Profile;
 import com.mauriciotogneri.swagger.annotations.endpoint.Default;
 import com.mauriciotogneri.swagger.annotations.endpoint.Description;
@@ -47,7 +46,7 @@ import static com.mauriciotogneri.swagger.types.StatusCode.UNAUTHORIZED;
         @Response(
                 code = OK,
                 produces = JSON,
-                type = {Profile.class, Person.class},
+                type = Profile.class,
                 headers = ResponseHeaders.class,
                 description = "Successful operation"
         ),

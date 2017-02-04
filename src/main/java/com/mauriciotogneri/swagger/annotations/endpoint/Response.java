@@ -15,7 +15,7 @@ public @interface Response
 
     String[] produces() default {};
 
-    Class<?>[] type() default {};
+    Class<?> type() default Object.class;
 
     Class<?> headers() default Object.class;
 

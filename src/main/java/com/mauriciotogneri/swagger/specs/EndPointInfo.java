@@ -95,7 +95,7 @@ public final class EndPointInfo
 
         for (Result result : results)
         {
-            responses.add(new SwaggerResponse(result.code(), result.types(), result.headers(), result.description()));
+            responses.add(new SwaggerResponse(result.code(), result.type(), result.headers(), result.description()));
         }
 
         return new SwaggerEndPoint(name, description, deprecated, parent, consumes, produces, parameters, responses);

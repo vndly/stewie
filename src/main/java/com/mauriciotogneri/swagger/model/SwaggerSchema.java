@@ -74,8 +74,6 @@ public final class SwaggerSchema
         }
         else if (clazz.equals(Date.class))
         {
-            // TODO: differentiate date from date-time
-
             return new SwaggerSchema(TYPE_STRING, "date-time", null, null, null);
         }
         else if (clazz.isEnum())
@@ -100,22 +98,6 @@ public final class SwaggerSchema
         else
         {
             return new SwaggerSchema(null, null, null, null, clazz.getCanonicalName());
-
-            //throw new RuntimeException(String.format("Invalid type: %s", clazz.getName()));
         }
     }
-
-    /*public static Boolean isBasicType(Class<?> clazz)
-    {
-        return (clazz.equals(String.class) ||
-                (clazz.equals(Boolean.class) || clazz.equals(boolean.class)) ||
-                (clazz.equals(Integer.class) || clazz.equals(int.class)) ||
-                (clazz.equals(Long.class) || clazz.equals(long.class)) ||
-                (clazz.equals(Float.class) || clazz.equals(float.class)) ||
-                (clazz.equals(Double.class) || clazz.equals(double.class)) ||
-                (clazz.equals(Date.class)) ||
-                (clazz.isEnum()) ||
-                (clazz.isArray())
-        );
-    }*/
 }

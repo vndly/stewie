@@ -14,11 +14,11 @@ public final class SwaggerResponse
     private final Map<String, SwaggerHeaderResponse> headers;
     private final String description;
 
-    public SwaggerResponse(Integer code, Class<?>[] clazz, Class<?> headers, String description)
+    public SwaggerResponse(Integer code, Class<?> clazz, Class<?> headers, String description)
     {
         this.code = code;
-        this.schema = SwaggerSchema.fromClass(clazz[0]); // TODO
-        this.headers = headers(headers);
+        this.schema = clazz.equals(Object.class) ? null : SwaggerSchema.fromClass(clazz);
+        this.headers = clazz.equals(Object.class) ? null : headers(headers);
         this.description = description;
     }
 
