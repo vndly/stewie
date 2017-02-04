@@ -12,10 +12,10 @@ import com.mauriciotogneri.app.model.Person;
 import com.mauriciotogneri.app.model.Profile;
 import com.mauriciotogneri.swagger.annotations.endpoint.Default;
 import com.mauriciotogneri.swagger.annotations.endpoint.Description;
+import com.mauriciotogneri.swagger.annotations.endpoint.EndPoint;
 import com.mauriciotogneri.swagger.annotations.endpoint.Name;
 import com.mauriciotogneri.swagger.annotations.endpoint.Optional;
 import com.mauriciotogneri.swagger.annotations.endpoint.Parameters;
-import com.mauriciotogneri.swagger.annotations.endpoint.EndPoint;
 import com.mauriciotogneri.swagger.annotations.endpoint.Response;
 import com.mauriciotogneri.swagger.annotations.endpoint.Responses;
 
@@ -54,22 +54,26 @@ import static com.mauriciotogneri.swagger.types.StatusCode.UNAUTHORIZED;
         @Response(
                 code = BAD_REQUEST,
                 produces = JSON,
-                type = Error.class
+                type = Error.class,
+                description = "Bad Request"
         ),
         @Response(
                 code = UNAUTHORIZED,
                 produces = JSON,
-                type = Error.class
+                type = Error.class,
+                description = "Unauthorized"
         ),
         @Response(
                 code = NOT_FOUND,
                 produces = JSON,
-                type = Error.class
+                type = Error.class,
+                description = "Not Found"
         ),
         @Response(
                 code = METHOD_NOT_ALLOWED,
                 produces = JSON,
-                type = Error.class
+                type = Error.class,
+                description = "Method Not Allowed"
         )
 })
 public interface SampleEndPoint
@@ -113,7 +117,7 @@ public interface SampleEndPoint
         public Double limit;
 
         @Description("The gender to filter")
-        public Gender gender;
+        public Gender[] gender;
     }
 
     @Description("The data parameter")

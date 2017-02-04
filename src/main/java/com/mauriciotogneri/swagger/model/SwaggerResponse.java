@@ -2,6 +2,7 @@ package com.mauriciotogneri.swagger.model;
 
 import com.google.gson.JsonObject;
 
+@SuppressWarnings("ALL")
 public final class SwaggerResponse
 {
     private final transient Integer code;
