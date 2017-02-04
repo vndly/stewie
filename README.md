@@ -10,7 +10,7 @@ Add the following code to your **pom.xml**:
         <plugins>
             <plugin>
                 <groupId>com.github.mauriciotogneri</groupId>
-                <artifactId>swagger-generator</artifactId>
+                <artifactId>swagger</artifactId>
                 <version>1.0.0</version>
             </plugin>
         </plugins>

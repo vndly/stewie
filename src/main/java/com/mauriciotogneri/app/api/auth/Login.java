@@ -73,12 +73,12 @@ public interface Login
 
     class ParametersPath
     {
-        public String id;
+        public Long id;
     }
 
     class ParametersUrl
     {
-        public Integer limit;
+        public Boolean filter;
     }
 
     class ParametersData

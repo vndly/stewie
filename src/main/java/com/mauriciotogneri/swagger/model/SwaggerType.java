@@ -1,5 +1,7 @@
 package com.mauriciotogneri.swagger.model;
 
+import org.joda.time.DateTime;
+
 public final class SwaggerType
 {
     private final String type;
@@ -75,64 +77,39 @@ public final class SwaggerType
         return new SwaggerType("string", "date-time", null, null);
     }
 
-    public static SwaggerType sequenceType(String description)
+    public static SwaggerType fromClass(Class<?> clazz)
     {
-        return new SwaggerType("string", null, null, description);
-    }
-
-   /* public static SwaggerType fromClass(ClassDef classDef, FieldDef fieldDef)
-    {
-        if (classDef.isString())
+        if (clazz.equals(String.class))
         {
             return SwaggerType.stringType();
         }
-        else if (classDef.isBoolean())
+        else if (clazz.equals(Boolean.class) || clazz.equals(boolean.class))
         {
             return SwaggerType.booleanType();
         }
-        else if (classDef.isInteger())
+        else if (clazz.equals(Integer.class) || clazz.equals(int.class))
         {
             return SwaggerType.integerType();
         }
-        else if (classDef.isLong())
+        else if (clazz.equals(Long.class) || clazz.equals(long.class))
         {
             return SwaggerType.longType();
         }
-        else if (classDef.isFloat())
+        else if (clazz.equals(Float.class) || clazz.equals(float.class))
         {
             return SwaggerType.floatType();
         }
-        else if (classDef.isDouble())
+        else if (clazz.equals(Double.class) || clazz.equals(double.class))
         {
             return SwaggerType.doubleType();
         }
-        else if (classDef.isDate())
+        else if (clazz.equals(DateTime.class))
         {
             return SwaggerType.dateTimeType();
         }
-        else if (classDef.isType(Sequence.class))
+        else if (clazz.equals(Enum.class))
         {
-            ClassDef fieldClassDef = fieldDef.genericType();
-
-            if (!fieldClassDef.isPrimitive())
-            {
-                List<String> constants = new ArrayList<>();
-
-                for (Object constant : fieldClassDef.enumConstants())
-                {
-                    constants.add(constant.toString());
-                }
-
-                return SwaggerType.sequenceType(String.format("[%s]", ListHelper.join(constants, ",")));
-            }
-            else
-            {
-                return SwaggerType.stringType();
-            }
-        }
-        else if (classDef.isEnum())
-        {
-            Object[] constants = classDef.enumConstants();
+            Object[] constants = clazz.getEnumConstants();
 
             String[] values = new String[constants.length];
 
@@ -145,7 +122,7 @@ public final class SwaggerType
         }
         else
         {
-            throw new RuntimeException(String.format("Invalid type: %s", classDef.name()));
+            throw new RuntimeException(String.format("Invalid type: %s", clazz.getName()));
         }
-    }*/
+    }
 }

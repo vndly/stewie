@@ -1,6 +1,5 @@
 package com.mauriciotogneri.swagger.specs.parameters;
 
-import com.google.gson.JsonObject;
 import com.mauriciotogneri.swagger.annotations.endpoint.Optional;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 
@@ -8,7 +7,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class UrlParameter
+public final class UrlParameter extends BaseParameter
 {
     private final Class<?> clazz;
 
@@ -23,14 +22,7 @@ public final class UrlParameter
 
         for (Field field : clazz.getDeclaredFields())
         {
-            SwaggerParameter parameter = new SwaggerParameter(
-                    field.getName(),
-                    "query",
-                    new JsonObject(),
-                    !field.isAnnotationPresent(Optional.class),
-                    "");
-
-            parameters.add(parameter);
+            parameters.add(parameter(field.getName(), "query", !field.isAnnotationPresent(Optional.class), field.getType(), defaultValue(field)));
         }
 
         return parameters;

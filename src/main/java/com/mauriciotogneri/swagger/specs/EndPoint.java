@@ -107,7 +107,7 @@ public final class EndPoint
     {
         for (HeaderParameter headerParameter : headerParameters)
         {
-            if (Header.CONTENT_TYPE.equals(headerParameter.name()))
+            if (headerParameter.is(Header.CONTENT_TYPE))
             {
                 return headerParameter.value();
             }
@@ -122,7 +122,7 @@ public final class EndPoint
 
         for (HeaderParameter parameter : headerParameters)
         {
-            if (!Header.CONTENT_TYPE.equals(parameter.name()))
+            if (!parameter.is(Header.CONTENT_TYPE))
             {
                 parameters.add(parameter.swaggerParameter());
             }

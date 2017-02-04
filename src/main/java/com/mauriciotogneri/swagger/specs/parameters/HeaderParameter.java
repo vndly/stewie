@@ -1,6 +1,5 @@
 package com.mauriciotogneri.swagger.specs.parameters;
 
-import com.google.gson.JsonObject;
 import com.mauriciotogneri.swagger.annotations.endpoint.Default;
 import com.mauriciotogneri.swagger.annotations.endpoint.Name;
 import com.mauriciotogneri.swagger.annotations.endpoint.Optional;
@@ -8,7 +7,7 @@ import com.mauriciotogneri.swagger.model.SwaggerParameter;
 
 import java.lang.reflect.Field;
 
-public final class HeaderParameter
+public final class HeaderParameter extends BaseParameter
 {
     private final String name;
     private final String[] value;
@@ -23,9 +22,9 @@ public final class HeaderParameter
         this.optional = field.isAnnotationPresent(Optional.class);
     }
 
-    public String name()
+    public Boolean is(String type)
     {
-        return name;
+        return type.equals(name);
     }
 
     public String[] value()
@@ -33,14 +32,14 @@ public final class HeaderParameter
         return value;
     }
 
+    private String valueList()
+    {
+        return (value.length != 0) ? String.join(";", value) : null;
+    }
+
     public SwaggerParameter swaggerParameter()
     {
-        return new SwaggerParameter(
-                name,
-                "header",
-                new JsonObject(),
-                !optional,
-                "");
+        return parameter(name, "header", !optional, type, valueList());
     }
 
     public static HeaderParameter[] from(Class<?> clazz)

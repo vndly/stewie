@@ -1,13 +1,12 @@
 package com.mauriciotogneri.swagger.specs.parameters;
 
-import com.google.gson.JsonObject;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class PathParameter
+public final class PathParameter extends BaseParameter
 {
     private final Class<?> clazz;
 
@@ -22,14 +21,7 @@ public final class PathParameter
 
         for (Field field : clazz.getDeclaredFields())
         {
-            SwaggerParameter parameter = new SwaggerParameter(
-                    field.getName(),
-                    "path",
-                    new JsonObject(),
-                    true,
-                    "");
-
-            parameters.add(parameter);
+            parameters.add(parameter(field.getName(), "path", true, field.getType(), defaultValue(field)));
         }
 
         return parameters;
