@@ -29,16 +29,13 @@ public final class JsonHelper
     {
     }
 
-    public static Gson create(boolean prettyPrint)
+    public static Gson create()
     {
         GsonBuilder builder = new GsonBuilder();
         //builder.registerTypeAdapter(DateTime.class, new DateTimeTypeAdapter());
 
-        if (prettyPrint)
-        {
-            builder.setPrettyPrinting();
-            builder.disableHtmlEscaping();
-        }
+        builder.setPrettyPrinting();
+        builder.disableHtmlEscaping();
 
         return builder.create();
     }

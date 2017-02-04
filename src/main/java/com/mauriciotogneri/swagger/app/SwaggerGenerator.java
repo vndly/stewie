@@ -63,7 +63,7 @@ public final class SwaggerGenerator
 
         Swagger swagger = new Swagger(new SwaggerInfo(version, title), host, basePath, Arrays.asList(protocol), tags, paths, new JsonObject());
 
-        Gson gson = JsonHelper.create(true);
+        Gson gson = JsonHelper.create();
         save(output, gson.toJson(swagger));
     }
 

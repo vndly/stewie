@@ -22,7 +22,7 @@ public final class UrlParameter extends BaseParameter
 
         for (Field field : clazz.getDeclaredFields())
         {
-            parameters.add(parameter(field.getName(), "query", !field.isAnnotationPresent(Optional.class), field.getType(), defaultValue(field)));
+            parameters.add(parameter(field.getName(), "query", field.isAnnotationPresent(Optional.class), field.getType(), defaultValue(field)));
         }
 
         return parameters;

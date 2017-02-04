@@ -39,7 +39,7 @@ public final class HeaderParameter extends BaseParameter
 
     public SwaggerParameter swaggerParameter()
     {
-        return parameter(name, "header", !optional, type, valueList());
+        return parameter(name, "header", optional, type, valueList());
     }
 
     public static HeaderParameter[] from(Class<?> clazz)

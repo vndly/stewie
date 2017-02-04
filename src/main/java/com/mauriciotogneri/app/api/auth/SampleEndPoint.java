@@ -1,12 +1,12 @@
 package com.mauriciotogneri.app.api.auth;
 
-import com.mauriciotogneri.app.api.auth.Login.ParametersData;
-import com.mauriciotogneri.app.api.auth.Login.ParametersPath;
-import com.mauriciotogneri.app.api.auth.Login.ParametersUrl;
-import com.mauriciotogneri.app.api.auth.Login.Person;
-import com.mauriciotogneri.app.api.auth.Login.Profile;
-import com.mauriciotogneri.app.api.auth.Login.RequestHeaders;
-import com.mauriciotogneri.app.api.auth.Login.ResponseHeaders;
+import com.mauriciotogneri.app.api.auth.SampleEndPoint.ParametersData;
+import com.mauriciotogneri.app.api.auth.SampleEndPoint.ParametersPath;
+import com.mauriciotogneri.app.api.auth.SampleEndPoint.ParametersUrl;
+import com.mauriciotogneri.app.api.auth.SampleEndPoint.Person;
+import com.mauriciotogneri.app.api.auth.SampleEndPoint.Profile;
+import com.mauriciotogneri.app.api.auth.SampleEndPoint.RequestHeaders;
+import com.mauriciotogneri.app.api.auth.SampleEndPoint.ResponseHeaders;
 import com.mauriciotogneri.swagger.annotations.endpoint.Default;
 import com.mauriciotogneri.swagger.annotations.endpoint.Description;
 import com.mauriciotogneri.swagger.annotations.endpoint.Error;
@@ -28,9 +28,9 @@ import static com.mauriciotogneri.swagger.types.MimeType.JSON;
 
 @Path(
         method = POST,
-        path = "/v1/auth/login"
+        path = "/v1/foo/bar/{id}"
 )
-@Description("This is the login end point.")
+@Description("This is a sample end point.")
 @Parameters(
         header = RequestHeaders.class,
         path = ParametersPath.class,
@@ -52,7 +52,7 @@ import static com.mauriciotogneri.swagger.types.MimeType.JSON;
                 @Error(code = METHOD_NOT_ALLOWED)
         }
 )
-public interface Login
+public interface SampleEndPoint
 {
     class RequestHeaders
     {
