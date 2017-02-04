@@ -7,14 +7,12 @@ public final class SwaggerType
     private final String type;
     private final String format;
     private final String[] enumValues;
-    private final String description;
 
-    private SwaggerType(String type, String format, String[] enumValues, String description)
+    private SwaggerType(String type, String format, String[] enumValues)
     {
         this.type = type;
         this.format = format;
         this.enumValues = enumValues;
-        this.description = description;
     }
 
     public String type()
@@ -32,80 +30,75 @@ public final class SwaggerType
         return enumValues;
     }
 
-    public String description()
+    private static SwaggerType integerType()
     {
-        return description;
+        return new SwaggerType("integer", null, null);
     }
 
-    private static SwaggerType integerType(String description)
+    private static SwaggerType longType()
     {
-        return new SwaggerType("integer", null, null, description);
+        return new SwaggerType("integer", null, null);
     }
 
-    private static SwaggerType longType(String description)
+    private static SwaggerType floatType()
     {
-        return new SwaggerType("integer", null, null, description);
+        return new SwaggerType("number", null, null);
     }
 
-    private static SwaggerType floatType(String description)
+    private static SwaggerType doubleType()
     {
-        return new SwaggerType("number", null, null, description);
+        return new SwaggerType("number", null, null);
     }
 
-    private static SwaggerType doubleType(String description)
+    private static SwaggerType stringType()
     {
-        return new SwaggerType("number", null, null, description);
+        return new SwaggerType("string", null, null);
     }
 
-    private static SwaggerType stringType(String description)
+    private static SwaggerType enumType(String[] values)
     {
-        return new SwaggerType("string", null, null, description);
+        return new SwaggerType("string", null, values);
     }
 
-    private static SwaggerType enumType(String[] values, String description)
+    private static SwaggerType booleanType()
     {
-        return new SwaggerType("string", null, values, description);
+        return new SwaggerType("boolean", null, null);
     }
 
-    private static SwaggerType booleanType(String description)
+    private static SwaggerType dateTimeType()
     {
-        return new SwaggerType("boolean", null, null, description);
+        return new SwaggerType("string", "date-time", null);
     }
 
-    private static SwaggerType dateTimeType(String description)
-    {
-        return new SwaggerType("string", "date-time", null, description);
-    }
-
-    public static SwaggerType fromClass(Class<?> clazz, String description)
+    public static SwaggerType fromClass(Class<?> clazz)
     {
         if (clazz.equals(String.class))
         {
-            return SwaggerType.stringType(description);
+            return SwaggerType.stringType();
         }
         else if (clazz.equals(Boolean.class) || clazz.equals(boolean.class))
         {
-            return SwaggerType.booleanType(description);
+            return SwaggerType.booleanType();
         }
         else if (clazz.equals(Integer.class) || clazz.equals(int.class))
         {
-            return SwaggerType.integerType(description);
+            return SwaggerType.integerType();
         }
         else if (clazz.equals(Long.class) || clazz.equals(long.class))
         {
-            return SwaggerType.longType(description);
+            return SwaggerType.longType();
         }
         else if (clazz.equals(Float.class) || clazz.equals(float.class))
         {
-            return SwaggerType.floatType(description);
+            return SwaggerType.floatType();
         }
         else if (clazz.equals(Double.class) || clazz.equals(double.class))
         {
-            return SwaggerType.doubleType(description);
+            return SwaggerType.doubleType();
         }
         else if (clazz.equals(Date.class))
         {
-            return SwaggerType.dateTimeType(description);
+            return SwaggerType.dateTimeType();
         }
         else if (clazz.isEnum())
         {
@@ -118,7 +111,7 @@ public final class SwaggerType
                 values[i] = constants[i].toString();
             }
 
-            return SwaggerType.enumType(values, description);
+            return SwaggerType.enumType(values);
         }
         else
         {

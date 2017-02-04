@@ -1,9 +1,10 @@
 package com.mauriciotogneri.swagger.specs.parameters;
 
-import com.google.gson.JsonObject;
+import com.mauriciotogneri.swagger.annotations.endpoint.Default;
+import com.mauriciotogneri.swagger.annotations.endpoint.Description;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 
-public final class DataParameter
+public final class DataParameter extends BaseParameter
 {
     private final Class<?> clazz;
 
@@ -24,11 +25,11 @@ public final class DataParameter
 
     public SwaggerParameter swaggerParameter()
     {
-        return new SwaggerParameter(
-                "data",
-                "body",
-                new JsonObject(),
-                true,
-                "");
+        String name = "data";
+        String type = "body";
+        String defaultValue = defaultValue(clazz.getAnnotation(Default.class));
+        String description = description(clazz.getAnnotation(Description.class));
+
+        return parameter(name, type, false, clazz, defaultValue, description);
     }
 }

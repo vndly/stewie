@@ -20,7 +20,7 @@ public final class SwaggerParameter
     @SerializedName("enum")
     private final String[] enumValues;
 
-    public SwaggerParameter(String name, String in, JsonObject schema, boolean required, String defaultValue)
+    public SwaggerParameter(String name, String in, JsonObject schema, boolean required, String defaultValue, String description)
     {
         this.name = name;
         this.in = in;
@@ -28,12 +28,12 @@ public final class SwaggerParameter
         this.format = null;
         this.schema = schema;
         this.enumValues = null;
-        this.description = null;
+        this.description = description;
         this.required = required;
         this.defaultValue = defaultValue;
     }
 
-    public SwaggerParameter(String name, String in, SwaggerType type, boolean required, String defaultValue)
+    public SwaggerParameter(String name, String in, SwaggerType type, boolean required, String defaultValue, String description)
     {
         this.name = name;
         this.in = in;
@@ -41,7 +41,7 @@ public final class SwaggerParameter
         this.format = type.format();
         this.schema = null;
         this.enumValues = type.enumValues();
-        this.description = type.description();
+        this.description = description;
         this.required = required;
         this.defaultValue = defaultValue;
     }

@@ -18,9 +18,10 @@ public class BaseParameter
             return new SwaggerParameter(
                     name,
                     type,
-                    SwaggerType.fromClass(clazz, description),
+                    SwaggerType.fromClass(clazz),
                     !optional,
-                    defaultValue);
+                    defaultValue,
+                    description);
         }
         else
         {
@@ -29,15 +30,19 @@ public class BaseParameter
                     type,
                     schema(clazz),
                     !optional,
-                    defaultValue);
+                    defaultValue,
+                    description);
         }
     }
 
     protected String defaultValue(Field field)
     {
-        Default defaultValue = field.getAnnotation(Default.class);
+        return defaultValue(field.getAnnotation(Default.class));
+    }
 
-        return (defaultValue != null) ? String.join("; ", defaultValue.value()) : null;
+    protected String defaultValue(Default annotation)
+    {
+        return (annotation != null) ? String.join("; ", annotation.value()) : null;
     }
 
     protected String description(Field field)
@@ -45,6 +50,11 @@ public class BaseParameter
         Description description = field.getAnnotation(Description.class);
 
         return (description != null) ? description.value() : null;
+    }
+
+    protected String description(Description annotation)
+    {
+        return (annotation != null) ? annotation.value() : null;
     }
 
     protected Boolean isBasicType(Class<?> clazz)

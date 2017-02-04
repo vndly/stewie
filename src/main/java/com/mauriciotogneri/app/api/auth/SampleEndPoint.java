@@ -95,6 +95,7 @@ public interface SampleEndPoint
         public Gender gender;
     }
 
+    @Description("The data parameter")
     class ParametersData
     {
         public String email;
