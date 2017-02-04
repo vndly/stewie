@@ -2,6 +2,7 @@ package com.mauriciotogneri.swagger.specs.parameters;
 
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 import com.mauriciotogneri.swagger.model.SwaggerSchema;
+import com.mauriciotogneri.swagger.specs.Definitions;
 import com.mauriciotogneri.swagger.utils.Annotations;
 
 import java.lang.reflect.Field;
@@ -19,7 +20,7 @@ public class FieldParameter
         this.clazz = clazz;
     }
 
-    public List<SwaggerParameter> swaggerParameters()
+    public List<SwaggerParameter> swaggerParameters(Definitions definitions)
     {
         List<SwaggerParameter> parameters = new ArrayList<>();
 
@@ -29,7 +30,7 @@ public class FieldParameter
 
             String name = field.getName();
             Boolean optional = optional(annotations);
-            SwaggerSchema schema = SwaggerSchema.fromClass(field.getType(), new Annotations(field));
+            SwaggerSchema schema = SwaggerSchema.fromClass(field.getType(), new Annotations(field), definitions);
             String defaultValue = annotations.defaultValue();
             String description = annotations.description();
 

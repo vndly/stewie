@@ -1,11 +1,12 @@
 package com.mauriciotogneri.swagger.app;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.mauriciotogneri.swagger.model.Swagger;
+import com.mauriciotogneri.swagger.model.SwaggerDefinitions;
 import com.mauriciotogneri.swagger.model.SwaggerInfo;
 import com.mauriciotogneri.swagger.model.SwaggerPath;
 import com.mauriciotogneri.swagger.model.SwaggerTag;
+import com.mauriciotogneri.swagger.specs.Definitions;
 import com.mauriciotogneri.swagger.specs.EndPointInfo;
 import com.mauriciotogneri.swagger.specs.Service;
 import com.mauriciotogneri.swagger.specs.Services;
@@ -58,10 +59,12 @@ public final class SwaggerGenerator
     {
         Services services = new Services(input);
 
+        Definitions definitions = new Definitions();
         List<SwaggerTag> tags = tags(services);
-        Map<String, SwaggerPath> paths = paths(services);
+        Map<String, SwaggerPath> paths = paths(services, definitions);
+        SwaggerDefinitions swaggerDefinitions = definitions.swaggerDefinitions();
 
-        Swagger swagger = new Swagger(new SwaggerInfo(version, title), host, basePath, Arrays.asList(protocol), tags, paths, new JsonObject());
+        Swagger swagger = new Swagger(new SwaggerInfo(version, title), host, basePath, Arrays.asList(protocol), tags, paths, swaggerDefinitions);
 
         Gson gson = JsonHelper.create();
         save(output, gson.toJson(swagger));
@@ -79,7 +82,7 @@ public final class SwaggerGenerator
         return tags;
     }
 
-    private Map<String, SwaggerPath> paths(Services services)
+    private Map<String, SwaggerPath> paths(Services services, Definitions definitions)
     {
         Map<String, SwaggerPath> paths = new HashMap<>();
 
@@ -100,7 +103,7 @@ public final class SwaggerGenerator
                     paths.put(endPointInfo.path(), swaggerPath);
                 }
 
-                swaggerPath.put(endPointInfo.method().toLowerCase(), endPointInfo.swaggerEndPoint());
+                swaggerPath.put(endPointInfo.method().toLowerCase(), endPointInfo.swaggerEndPoint(definitions));
             }
         }
 

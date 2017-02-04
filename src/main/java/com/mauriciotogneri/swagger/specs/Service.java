@@ -19,7 +19,7 @@ public final class Service implements Iterable<EndPointInfo>
     @Override
     public Iterator<EndPointInfo> iterator()
     {
-        final List<EndPointInfo> endPointInfos = new ArrayList<>();
+        final List<EndPointInfo> endPoints = new ArrayList<>();
 
         File[] roots = root.listFiles();
 
@@ -32,12 +32,12 @@ public final class Service implements Iterable<EndPointInfo>
                 if (!name.endsWith("Module"))
                 {
                     EndPointInfo endPointInfo = new EndPointInfo(toString(), current);
-                    endPointInfos.add(endPointInfo);
+                    endPoints.add(endPointInfo);
                 }
             }
         }
 
-        endPointInfos.sort(Comparator.comparing(EndPointInfo::name));
+        endPoints.sort(Comparator.comparing(EndPointInfo::name));
 
         return new Iterator<EndPointInfo>()
         {
@@ -46,15 +46,15 @@ public final class Service implements Iterable<EndPointInfo>
             @Override
             public boolean hasNext()
             {
-                return index < endPointInfos.size();
+                return index < endPoints.size();
             }
 
             @Override
             public EndPointInfo next()
             {
-                if (index < endPointInfos.size())
+                if (index < endPoints.size())
                 {
-                    return endPointInfos.get(index++);
+                    return endPoints.get(index++);
                 }
                 else
                 {

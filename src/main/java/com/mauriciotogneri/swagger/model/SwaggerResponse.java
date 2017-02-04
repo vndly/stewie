@@ -1,5 +1,6 @@
 package com.mauriciotogneri.swagger.model;
 
+import com.mauriciotogneri.swagger.specs.Definitions;
 import com.mauriciotogneri.swagger.utils.Annotations;
 
 import java.lang.reflect.Field;
@@ -14,11 +15,11 @@ public final class SwaggerResponse
     private final Map<String, SwaggerHeaderResponse> headers;
     private final String description;
 
-    public SwaggerResponse(Integer code, Class<?> clazz, Class<?> headers, String description)
+    public SwaggerResponse(Integer code, Class<?> clazz, Class<?> headers, String description, Definitions definitions)
     {
         this.code = code;
-        this.schema = clazz.equals(Object.class) ? null : SwaggerSchema.fromClass(clazz, new Annotations(clazz));
-        this.headers = headers.equals(Object.class) ? null : headers(headers);
+        this.schema = clazz.equals(Object.class) ? null : SwaggerSchema.fromClass(clazz, new Annotations(clazz), definitions);
+        this.headers = headers.equals(Object.class) ? null : headers(headers, definitions);
         this.description = description;
     }
 
@@ -27,7 +28,7 @@ public final class SwaggerResponse
         return String.valueOf(code);
     }
 
-    private Map<String, SwaggerHeaderResponse> headers(Class<?> headers)
+    private Map<String, SwaggerHeaderResponse> headers(Class<?> headers, Definitions definitions)
     {
         Map<String, SwaggerHeaderResponse> result = new HashMap<>();
 
@@ -36,7 +37,7 @@ public final class SwaggerResponse
             Annotations annotations = new Annotations(field);
 
             String name = annotations.name();
-            SwaggerSchema schema = SwaggerSchema.fromClass(field.getType(), new Annotations(field));
+            SwaggerSchema schema = SwaggerSchema.fromClass(field.getType(), new Annotations(field), definitions);
             String description = annotations.description();
 
             result.put(name, new SwaggerHeaderResponse(schema.type(), schema.format(), description));

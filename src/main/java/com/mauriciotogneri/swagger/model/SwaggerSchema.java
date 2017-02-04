@@ -1,6 +1,7 @@
 package com.mauriciotogneri.swagger.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.mauriciotogneri.swagger.specs.Definitions;
 import com.mauriciotogneri.swagger.utils.Annotations;
 
 import java.util.Date;
@@ -66,7 +67,7 @@ public final class SwaggerSchema
         return format;
     }
 
-    public static SwaggerSchema fromClass(Class<?> clazz, Annotations annotations)
+    public static SwaggerSchema fromClass(Class<?> clazz, Annotations annotations, Definitions definitions)
     {
         if (clazz.equals(String.class))
         {
@@ -104,13 +105,17 @@ public final class SwaggerSchema
         else if (clazz.isArray())
         {
             Class<?> componentType = clazz.getComponentType();
-            SwaggerSchema items = SwaggerSchema.fromClass(componentType, new Annotations(componentType));
+            SwaggerSchema items = SwaggerSchema.fromClass(componentType, new Annotations(componentType), definitions);
 
             return new Builder(annotations).type(TYPE_ARRAY).items(items).build();
         }
         else
         {
-            return new Builder().ref(clazz.getCanonicalName()).build();
+            String name = clazz.getCanonicalName();
+
+            definitions.add(name, clazz);
+
+            return new Builder().ref(name).build();
         }
     }
 

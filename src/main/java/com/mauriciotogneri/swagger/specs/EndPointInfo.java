@@ -86,16 +86,16 @@ public final class EndPointInfo
         }
     }
 
-    public SwaggerEndPoint swaggerEndPoint()
+    public SwaggerEndPoint swaggerEndPoint(Definitions definitions)
     {
         String[] consumes = consumes();
         String[] produces = produces();
-        List<SwaggerParameter> parameters = parameters(headerParameters, pathParameters, urlParameters, formParameters, dataParameter);
+        List<SwaggerParameter> parameters = parameters(headerParameters, pathParameters, urlParameters, formParameters, dataParameter, definitions);
         List<SwaggerResponse> responses = new ArrayList<>();
 
         for (Result result : results)
         {
-            responses.add(new SwaggerResponse(result.code(), result.type(), result.headers(), result.description()));
+            responses.add(new SwaggerResponse(result.code(), result.type(), result.headers(), result.description(), definitions));
         }
 
         return new SwaggerEndPoint(name, description, deprecated, parent, consumes, produces, parameters, responses);
@@ -135,7 +135,7 @@ public final class EndPointInfo
         return result;
     }
 
-    private List<SwaggerParameter> parameters(HeaderParameter[] headerParameters, PathParameter pathParameters, UrlParameter urlParameters, FormParameter formParameters, DataParameter dataParameter)
+    private List<SwaggerParameter> parameters(HeaderParameter[] headerParameters, PathParameter pathParameters, UrlParameter urlParameters, FormParameter formParameters, DataParameter dataParameter, Definitions definitions)
     {
         List<SwaggerParameter> parameters = new ArrayList<>();
 
@@ -143,17 +143,17 @@ public final class EndPointInfo
         {
             if (!parameter.is(Header.CONTENT_TYPE))
             {
-                parameters.add(parameter.swaggerParameter());
+                parameters.add(parameter.swaggerParameter(definitions));
             }
         }
 
-        parameters.addAll(pathParameters.swaggerParameters());
-        parameters.addAll(urlParameters.swaggerParameters());
-        parameters.addAll(formParameters.swaggerParameters());
+        parameters.addAll(pathParameters.swaggerParameters(definitions));
+        parameters.addAll(urlParameters.swaggerParameters(definitions));
+        parameters.addAll(formParameters.swaggerParameters(definitions));
 
         if (dataParameter.isPresent())
         {
-            parameters.add(dataParameter.swaggerParameter());
+            parameters.add(dataParameter.swaggerParameter(definitions));
         }
 
         return parameters;

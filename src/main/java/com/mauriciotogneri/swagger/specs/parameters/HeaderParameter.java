@@ -3,6 +3,7 @@ package com.mauriciotogneri.swagger.specs.parameters;
 import com.mauriciotogneri.swagger.annotations.endpoint.Default;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 import com.mauriciotogneri.swagger.model.SwaggerSchema;
+import com.mauriciotogneri.swagger.specs.Definitions;
 import com.mauriciotogneri.swagger.utils.Annotations;
 
 import java.lang.reflect.Field;
@@ -41,12 +42,12 @@ public final class HeaderParameter
         return (defaultValue.length != 0) ? String.join("; ", defaultValue) : null;
     }
 
-    public SwaggerParameter swaggerParameter()
+    public SwaggerParameter swaggerParameter(Definitions definitions)
     {
         return new SwaggerParameter(
                 name,
                 "header",
-                SwaggerSchema.fromClass(clazz, new Annotations(clazz)),
+                SwaggerSchema.fromClass(clazz, new Annotations(clazz), definitions),
                 valueList(),
                 !optional,
                 description);
