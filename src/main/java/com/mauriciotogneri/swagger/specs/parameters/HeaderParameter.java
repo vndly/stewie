@@ -2,7 +2,7 @@ package com.mauriciotogneri.swagger.specs.parameters;
 
 import com.mauriciotogneri.swagger.annotations.endpoint.Default;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
-import com.mauriciotogneri.swagger.specs.Schema;
+import com.mauriciotogneri.swagger.model.SwaggerSchema;
 import com.mauriciotogneri.swagger.utils.Annotations;
 
 import java.lang.reflect.Field;
@@ -46,7 +46,7 @@ public final class HeaderParameter
         return new SwaggerParameter(
                 name,
                 "header",
-                Schema.fromClass(clazz),
+                SwaggerSchema.fromClass(clazz),
                 valueList(),
                 !optional,
                 description);

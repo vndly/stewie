@@ -1,13 +1,13 @@
-package com.mauriciotogneri.swagger.specs;
+package com.mauriciotogneri.swagger.model;
 
 import java.util.Date;
 
-public final class Schema
+public final class SwaggerSchema
 {
     private final String type;
     private final String format;
     private final String[] enumValues;
-    private final Schema items;
+    private final SwaggerSchema items;
     private final String $ref;
 
     // TODO
@@ -25,7 +25,7 @@ public final class Schema
     private static final String TYPE_NUMBER = "number";
     private static final String TYPE_ARRAY = "array";
 
-    private Schema(String type, String format, String[] enumValues, Schema items, String ref)
+    private SwaggerSchema(String type, String format, String[] enumValues, SwaggerSchema items, String ref)
     {
         this.type = type;
         this.format = format;
@@ -44,7 +44,7 @@ public final class Schema
         return format;
     }
 
-    public Schema items()
+    public SwaggerSchema items()
     {
         return items;
     }
@@ -54,29 +54,29 @@ public final class Schema
         return enumValues;
     }
 
-    public static Schema fromClass(Class<?> clazz)
+    public static SwaggerSchema fromClass(Class<?> clazz)
     {
         if (clazz.equals(String.class))
         {
-            return new Schema(TYPE_STRING, null, null, null, null);
+            return new SwaggerSchema(TYPE_STRING, null, null, null, null);
         }
         else if (clazz.equals(Boolean.class) || clazz.equals(boolean.class))
         {
-            return new Schema(TYPE_BOOLEAN, null, null, null, null);
+            return new SwaggerSchema(TYPE_BOOLEAN, null, null, null, null);
         }
         else if (clazz.equals(Integer.class) || clazz.equals(int.class) || clazz.equals(Long.class) || clazz.equals(long.class))
         {
-            return new Schema(TYPE_INTEGER, null, null, null, null);
+            return new SwaggerSchema(TYPE_INTEGER, null, null, null, null);
         }
         else if (clazz.equals(Float.class) || clazz.equals(float.class) || clazz.equals(Double.class) || clazz.equals(double.class))
         {
-            return new Schema(TYPE_NUMBER, null, null, null, null);
+            return new SwaggerSchema(TYPE_NUMBER, null, null, null, null);
         }
         else if (clazz.equals(Date.class))
         {
             // TODO: differentiate date from date-time
 
-            return new Schema(TYPE_STRING, "date-time", null, null, null);
+            return new SwaggerSchema(TYPE_STRING, "date-time", null, null, null);
         }
         else if (clazz.isEnum())
         {
@@ -89,17 +89,17 @@ public final class Schema
                 values[i] = constants[i].toString();
             }
 
-            return new Schema(TYPE_STRING, null, values, null, null);
+            return new SwaggerSchema(TYPE_STRING, null, values, null, null);
         }
         else if (clazz.isArray())
         {
-            Schema items = Schema.fromClass(clazz.getComponentType());
+            SwaggerSchema items = SwaggerSchema.fromClass(clazz.getComponentType());
 
-            return new Schema(TYPE_ARRAY, null, null, items, null);
+            return new SwaggerSchema(TYPE_ARRAY, null, null, items, null);
         }
         else
         {
-            return new Schema(null, null, null, null, clazz.getCanonicalName());
+            return new SwaggerSchema(null, null, null, null, clazz.getCanonicalName());
 
             //throw new RuntimeException(String.format("Invalid type: %s", clazz.getName()));
         }

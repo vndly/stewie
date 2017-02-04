@@ -2,7 +2,7 @@ package com.mauriciotogneri.swagger.specs.parameters;
 
 import com.mauriciotogneri.swagger.annotations.endpoint.Optional;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
-import com.mauriciotogneri.swagger.specs.Schema;
+import com.mauriciotogneri.swagger.model.SwaggerSchema;
 import com.mauriciotogneri.swagger.utils.Annotations;
 
 import java.lang.reflect.Field;
@@ -30,7 +30,7 @@ public class FieldParameter
 
             String name = field.getName();
             Boolean optional = optional(field);
-            Schema schema = Schema.fromClass(field.getType());
+            SwaggerSchema schema = SwaggerSchema.fromClass(field.getType());
             String defaultValue = annotations.defaultValue();
             String description = annotations.description();
 

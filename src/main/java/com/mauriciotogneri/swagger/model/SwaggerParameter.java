@@ -1,14 +1,13 @@
 package com.mauriciotogneri.swagger.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.mauriciotogneri.swagger.specs.Schema;
 
 @SuppressWarnings("ALL")
 public final class SwaggerParameter
 {
     private final String name;
     private final String in;
-    private final Schema schema;
+    private final SwaggerSchema schema;
     private final String description;
     private final Boolean required;
 
@@ -18,7 +17,7 @@ public final class SwaggerParameter
     @SerializedName("enum")
     private final String[] enumValues;
 
-    public SwaggerParameter(String name, String in, Schema schema, String defaultValue, Boolean required, String description)
+    public SwaggerParameter(String name, String in, SwaggerSchema schema, String defaultValue, Boolean required, String description)
     {
         this.name = name;
         this.in = in;

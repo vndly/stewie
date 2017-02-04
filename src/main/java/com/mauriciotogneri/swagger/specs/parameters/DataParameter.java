@@ -1,7 +1,7 @@
 package com.mauriciotogneri.swagger.specs.parameters;
 
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
-import com.mauriciotogneri.swagger.specs.Schema;
+import com.mauriciotogneri.swagger.model.SwaggerSchema;
 import com.mauriciotogneri.swagger.utils.Annotations;
 
 public final class DataParameter
@@ -29,7 +29,7 @@ public final class DataParameter
 
         String name = "data";
         String type = "body";
-        Schema schema = Schema.fromClass(clazz);
+        SwaggerSchema schema = SwaggerSchema.fromClass(clazz);
         String defaultValue = annotations.defaultValue();
         String description = annotations.description();
 
