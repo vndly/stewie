@@ -1,11 +1,10 @@
 package com.mauriciotogneri.swagger.specs.parameters;
 
-import com.mauriciotogneri.swagger.annotations.endpoint.Default;
-import com.mauriciotogneri.swagger.annotations.endpoint.Description;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 import com.mauriciotogneri.swagger.specs.Schema;
+import com.mauriciotogneri.swagger.utils.Annotations;
 
-public final class DataParameter extends BaseParameter
+public final class DataParameter
 {
     private final Class<?> clazz;
 
@@ -26,12 +25,20 @@ public final class DataParameter extends BaseParameter
 
     public SwaggerParameter swaggerParameter()
     {
+        Annotations annotations = new Annotations(clazz);
+
         String name = "data";
         String type = "body";
         Schema schema = Schema.fromClass(clazz);
-        String defaultValue = defaultValue(clazz.getAnnotation(Default.class));
-        String description = description(clazz.getAnnotation(Description.class));
+        String defaultValue = annotations.defaultValue();
+        String description = annotations.description();
 
-        return parameter(name, type, false, schema, defaultValue, description);
+        return new SwaggerParameter(
+                name,
+                type,
+                schema,
+                defaultValue,
+                true,
+                description);
     }
 }

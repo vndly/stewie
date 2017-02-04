@@ -35,6 +35,7 @@ public final class SwaggerResponse
         for (Field field : headers.getFields())
         {
             Annotations annotations = new Annotations(field);
+
             String name = annotations.name();
             Schema schema = Schema.fromClass(field.getType());
             String description = annotations.description();

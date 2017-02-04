@@ -34,7 +34,7 @@ import static com.mauriciotogneri.swagger.types.StatusCode.UNAUTHORIZED;
 @EndPoint(
         method = POST,
         path = "/v1/foo/bar/{id}",
-        description ="This is a sample end point."
+        description = "This is a sample end point."
 )
 @Parameters(
         header = RequestHeaders.class,

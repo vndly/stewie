@@ -1,15 +1,13 @@
 package com.mauriciotogneri.swagger.specs.parameters;
 
 import com.mauriciotogneri.swagger.annotations.endpoint.Default;
-import com.mauriciotogneri.swagger.annotations.endpoint.Description;
-import com.mauriciotogneri.swagger.annotations.endpoint.Name;
-import com.mauriciotogneri.swagger.annotations.endpoint.Optional;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 import com.mauriciotogneri.swagger.specs.Schema;
+import com.mauriciotogneri.swagger.utils.Annotations;
 
 import java.lang.reflect.Field;
 
-public final class HeaderParameter extends BaseParameter
+public final class HeaderParameter
 {
     private final String name;
     private final String[] value;
@@ -19,11 +17,13 @@ public final class HeaderParameter extends BaseParameter
 
     public HeaderParameter(Field field)
     {
-        this.name = field.isAnnotationPresent(Name.class) ? field.getAnnotation(Name.class).value() : "";
+        Annotations annotations = new Annotations(field);
+
+        this.name = annotations.name();
         this.value = field.isAnnotationPresent(Default.class) ? field.getAnnotation(Default.class).value() : new String[0];
         this.clazz = field.getType();
-        this.optional = field.isAnnotationPresent(Optional.class);
-        this.description = field.isAnnotationPresent(Description.class) ? field.getAnnotation(Description.class).value() : null;
+        this.optional = annotations.optional();
+        this.description = annotations.description();
     }
 
     public Boolean is(String type)
@@ -43,7 +43,13 @@ public final class HeaderParameter extends BaseParameter
 
     public SwaggerParameter swaggerParameter()
     {
-        return parameter(name, "header", optional, Schema.fromClass(clazz), valueList(), description);
+        return new SwaggerParameter(
+                name,
+                "header",
+                Schema.fromClass(clazz),
+                valueList(),
+                !optional,
+                description);
     }
 
     public static HeaderParameter[] from(Class<?> clazz)
