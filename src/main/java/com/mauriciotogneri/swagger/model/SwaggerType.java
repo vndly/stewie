@@ -37,75 +37,75 @@ public final class SwaggerType
         return description;
     }
 
-    public static SwaggerType integerType()
+    private static SwaggerType integerType(String description)
     {
-        return new SwaggerType("integer", null, null, null);
+        return new SwaggerType("integer", null, null, description);
     }
 
-    public static SwaggerType longType()
+    private static SwaggerType longType(String description)
     {
-        return new SwaggerType("integer", null, null, null);
+        return new SwaggerType("integer", null, null, description);
     }
 
-    public static SwaggerType floatType()
+    private static SwaggerType floatType(String description)
     {
-        return new SwaggerType("number", null, null, null);
+        return new SwaggerType("number", null, null, description);
     }
 
-    public static SwaggerType doubleType()
+    private static SwaggerType doubleType(String description)
     {
-        return new SwaggerType("number", null, null, null);
+        return new SwaggerType("number", null, null, description);
     }
 
-    public static SwaggerType stringType()
+    private static SwaggerType stringType(String description)
     {
-        return new SwaggerType("string", null, null, null);
+        return new SwaggerType("string", null, null, description);
     }
 
-    public static SwaggerType stringType(String[] values)
+    private static SwaggerType enumType(String[] values, String description)
     {
-        return new SwaggerType("string", null, values, null);
+        return new SwaggerType("string", null, values, description);
     }
 
-    public static SwaggerType booleanType()
+    private static SwaggerType booleanType(String description)
     {
-        return new SwaggerType("boolean", null, null, null);
+        return new SwaggerType("boolean", null, null, description);
     }
 
-    public static SwaggerType dateTimeType()
+    private static SwaggerType dateTimeType(String description)
     {
-        return new SwaggerType("string", "date-time", null, null);
+        return new SwaggerType("string", "date-time", null, description);
     }
 
-    public static SwaggerType fromClass(Class<?> clazz)
+    public static SwaggerType fromClass(Class<?> clazz, String description)
     {
         if (clazz.equals(String.class))
         {
-            return SwaggerType.stringType();
+            return SwaggerType.stringType(description);
         }
         else if (clazz.equals(Boolean.class) || clazz.equals(boolean.class))
         {
-            return SwaggerType.booleanType();
+            return SwaggerType.booleanType(description);
         }
         else if (clazz.equals(Integer.class) || clazz.equals(int.class))
         {
-            return SwaggerType.integerType();
+            return SwaggerType.integerType(description);
         }
         else if (clazz.equals(Long.class) || clazz.equals(long.class))
         {
-            return SwaggerType.longType();
+            return SwaggerType.longType(description);
         }
         else if (clazz.equals(Float.class) || clazz.equals(float.class))
         {
-            return SwaggerType.floatType();
+            return SwaggerType.floatType(description);
         }
         else if (clazz.equals(Double.class) || clazz.equals(double.class))
         {
-            return SwaggerType.doubleType();
+            return SwaggerType.doubleType(description);
         }
         else if (clazz.equals(DateTime.class))
         {
-            return SwaggerType.dateTimeType();
+            return SwaggerType.dateTimeType(description);
         }
         else if (clazz.equals(Enum.class))
         {
@@ -118,7 +118,7 @@ public final class SwaggerType
                 values[i] = constants[i].toString();
             }
 
-            return SwaggerType.stringType(values);
+            return SwaggerType.enumType(values, description);
         }
         else
         {

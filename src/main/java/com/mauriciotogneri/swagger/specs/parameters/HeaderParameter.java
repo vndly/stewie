@@ -1,6 +1,7 @@
 package com.mauriciotogneri.swagger.specs.parameters;
 
 import com.mauriciotogneri.swagger.annotations.endpoint.Default;
+import com.mauriciotogneri.swagger.annotations.endpoint.Description;
 import com.mauriciotogneri.swagger.annotations.endpoint.Name;
 import com.mauriciotogneri.swagger.annotations.endpoint.Optional;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
@@ -13,6 +14,7 @@ public final class HeaderParameter extends BaseParameter
     private final String[] value;
     private final Class<?> type;
     private final Boolean optional;
+    private final String description;
 
     public HeaderParameter(Field field)
     {
@@ -20,6 +22,7 @@ public final class HeaderParameter extends BaseParameter
         this.value = field.isAnnotationPresent(Default.class) ? field.getAnnotation(Default.class).value() : new String[0];
         this.type = field.getType();
         this.optional = field.isAnnotationPresent(Optional.class);
+        this.description = field.isAnnotationPresent(Description.class) ? field.getAnnotation(Description.class).value() : null;
     }
 
     public Boolean is(String type)
@@ -39,7 +42,7 @@ public final class HeaderParameter extends BaseParameter
 
     public SwaggerParameter swaggerParameter()
     {
-        return parameter(name, "header", optional, type, valueList());
+        return parameter(name, "header", optional, type, valueList(), description);
     }
 
     public static HeaderParameter[] from(Class<?> clazz)

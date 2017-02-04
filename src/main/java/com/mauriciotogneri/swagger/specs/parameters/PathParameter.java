@@ -21,7 +21,13 @@ public final class PathParameter extends BaseParameter
 
         for (Field field : clazz.getDeclaredFields())
         {
-            parameters.add(parameter(field.getName(), "path", false, field.getType(), defaultValue(field)));
+            String name = field.getName();
+            String type = "path";
+            Class<?> clazz = field.getType();
+            String defaultValue = defaultValue(field);
+            String description = description(field);
+
+            parameters.add(parameter(name, type, false, clazz, defaultValue, description));
         }
 
         return parameters;

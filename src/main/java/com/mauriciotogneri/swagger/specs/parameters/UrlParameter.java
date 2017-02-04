@@ -22,7 +22,14 @@ public final class UrlParameter extends BaseParameter
 
         for (Field field : clazz.getDeclaredFields())
         {
-            parameters.add(parameter(field.getName(), "query", field.isAnnotationPresent(Optional.class), field.getType(), defaultValue(field)));
+            String name = field.getName();
+            String type = "query";
+            Boolean optional = field.isAnnotationPresent(Optional.class);
+            Class<?> clazz = field.getType();
+            String defaultValue = defaultValue(field);
+            String description = description(field);
+
+            parameters.add(parameter(name, type, optional, clazz, defaultValue, description));
         }
 
         return parameters;

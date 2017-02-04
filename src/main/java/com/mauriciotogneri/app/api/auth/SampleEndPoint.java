@@ -62,6 +62,7 @@ public interface SampleEndPoint
 
         @Optional
         @Name(COOKIE)
+        @Description("The session cookie")
         public String cookie;
     }
 
@@ -73,11 +74,13 @@ public interface SampleEndPoint
 
     class ParametersPath
     {
+        @Description("The resource id")
         public Long id;
     }
 
     class ParametersUrl
     {
+        @Description("The filter switch")
         public Boolean filter;
     }
 

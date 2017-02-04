@@ -2,6 +2,7 @@ package com.mauriciotogneri.swagger.specs.parameters;
 
 import com.google.gson.JsonObject;
 import com.mauriciotogneri.swagger.annotations.endpoint.Default;
+import com.mauriciotogneri.swagger.annotations.endpoint.Description;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 import com.mauriciotogneri.swagger.model.SwaggerType;
 
@@ -11,14 +12,14 @@ import java.lang.reflect.Field;
 
 public class BaseParameter
 {
-    protected SwaggerParameter parameter(String name, String type, Boolean optional, Class<?> clazz, String defaultValue)
+    protected SwaggerParameter parameter(String name, String type, Boolean optional, Class<?> clazz, String defaultValue, String description)
     {
         if (isBasicType(clazz))
         {
             return new SwaggerParameter(
                     name,
                     type,
-                    SwaggerType.fromClass(clazz),
+                    SwaggerType.fromClass(clazz, description),
                     !optional,
                     defaultValue);
         }
@@ -38,6 +39,13 @@ public class BaseParameter
         Default defaultValue = field.getAnnotation(Default.class);
 
         return (defaultValue != null) ? String.join("; ", defaultValue.value()) : null;
+    }
+
+    protected String description(Field field)
+    {
+        Description description = field.getAnnotation(Description.class);
+
+        return (description != null) ? description.value() : null;
     }
 
     protected Boolean isBasicType(Class<?> clazz)
