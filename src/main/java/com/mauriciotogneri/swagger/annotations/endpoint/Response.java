@@ -19,5 +19,5 @@ public @interface Response
 
     Class<?> headers() default Object.class;
 
-    Error[] errors() default {};
+    String description() default "";
 }

@@ -6,7 +6,7 @@ import com.mauriciotogneri.swagger.model.Swagger;
 import com.mauriciotogneri.swagger.model.SwaggerInfo;
 import com.mauriciotogneri.swagger.model.SwaggerPath;
 import com.mauriciotogneri.swagger.model.SwaggerTag;
-import com.mauriciotogneri.swagger.specs.EndPoint;
+import com.mauriciotogneri.swagger.specs.EndPointInfo;
 import com.mauriciotogneri.swagger.specs.Service;
 import com.mauriciotogneri.swagger.specs.Services;
 import com.mauriciotogneri.swagger.utils.JsonHelper;
@@ -85,9 +85,9 @@ public final class SwaggerGenerator
 
         for (Service service : services)
         {
-            for (EndPoint endPoint : service)
+            for (EndPointInfo endPointInfo : service)
             {
-                String endPointPath = endPoint.path();
+                String endPointPath = endPointInfo.path();
                 SwaggerPath swaggerPath;
 
                 if (paths.containsKey(endPointPath))
@@ -97,10 +97,10 @@ public final class SwaggerGenerator
                 else
                 {
                     swaggerPath = new SwaggerPath();
-                    paths.put(endPoint.path(), swaggerPath);
+                    paths.put(endPointInfo.path(), swaggerPath);
                 }
 
-                swaggerPath.put(endPoint.method().toLowerCase(), endPoint.swaggerEndPoint());
+                swaggerPath.put(endPointInfo.method().toLowerCase(), endPointInfo.swaggerEndPoint());
             }
         }
 

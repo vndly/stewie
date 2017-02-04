@@ -1,9 +1,8 @@
 package com.mauriciotogneri.swagger.specs;
 
-import com.mauriciotogneri.swagger.annotations.endpoint.Description;
+import com.mauriciotogneri.swagger.annotations.endpoint.EndPoint;
 import com.mauriciotogneri.swagger.annotations.endpoint.Parameters;
-import com.mauriciotogneri.swagger.annotations.endpoint.Path;
-import com.mauriciotogneri.swagger.annotations.endpoint.Response;
+import com.mauriciotogneri.swagger.annotations.endpoint.Responses;
 import com.mauriciotogneri.swagger.model.SwaggerEndPoint;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 import com.mauriciotogneri.swagger.model.SwaggerResponse;
@@ -17,38 +16,39 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class EndPoint
+public final class EndPointInfo
 {
     private final String parent;
     private final String name;
     private final String path;
     private final String method;
     private final String description;
+    private final Boolean deprecated;
     private final HeaderParameter[] headerParameters;
     private final PathParameter pathParameters;
     private final UrlParameter urlParameters;
     private final DataParameter dataParameter;
-    private final Result result;
+    private final Result[] results;
 
-    public EndPoint(String parent, File file)
+    public EndPointInfo(String parent, File file)
     {
         Class<?> clazz = getClass(file);
 
-        Path path = clazz.getAnnotation(Path.class);
+        EndPoint endPoint = clazz.getAnnotation(EndPoint.class);
         Parameters parameters = clazz.getAnnotation(Parameters.class);
-        Response response = clazz.getAnnotation(Response.class);
-        Description description = clazz.getAnnotation(Description.class);
+        Responses responses = clazz.getAnnotation(Responses.class);
 
         this.parent = parent;
         this.name = file.getName().replace(".java", "");
-        this.path = path.path();
-        this.method = path.method();
-        this.description = description.value();
+        this.path = endPoint.path();
+        this.method = endPoint.method();
+        this.description = endPoint.description().isEmpty() ? null : endPoint.description();
+        this.deprecated = endPoint.deprecated();
         this.headerParameters = HeaderParameter.from(parameters.header());
         this.pathParameters = new PathParameter(parameters.path());
         this.urlParameters = new UrlParameter(parameters.url());
         this.dataParameter = new DataParameter(parameters.data());
-        this.result = new Result(response);
+        this.results = Result.from(responses.value());
     }
 
     public String name()
@@ -86,16 +86,16 @@ public final class EndPoint
     public SwaggerEndPoint swaggerEndPoint()
     {
         String[] consumes = consumes();
-        String[] produces = result.produces();
+        String[] produces = produces();
         List<SwaggerParameter> parameters = parameters(headerParameters, pathParameters, urlParameters, dataParameter);
-        SwaggerResponse response = null;
+        List<SwaggerResponse> responses = new ArrayList<>();
 
-        if (!result.isEmpty())
+        for (Result result : results)
         {
-            response = new SwaggerResponse(result.types());
+            responses.add(new SwaggerResponse(result.code(), result.types(), result.headers(), result.description()));
         }
 
-        return new SwaggerEndPoint(name, description, parent, consumes, produces, parameters, String.valueOf(result.code()), response);
+        return new SwaggerEndPoint(name, description, deprecated, parent, consumes, produces, parameters, responses);
     }
 
     private String[] consumes()
@@ -109,6 +109,27 @@ public final class EndPoint
         }
 
         return new String[0];
+    }
+
+    private String[] produces()
+    {
+        List<String> list = new ArrayList<>();
+
+        for (Result result : results)
+        {
+            for (String produces : result.produces())
+            {
+                if (!list.contains(produces))
+                {
+                    list.add(produces);
+                }
+            }
+        }
+
+        String[] result = new String[list.size()];
+        list.toArray(result);
+
+        return result;
     }
 
     private List<SwaggerParameter> parameters(HeaderParameter[] headerParameters, PathParameter pathParameters, UrlParameter urlParameters, DataParameter dataParameter)

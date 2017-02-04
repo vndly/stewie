@@ -7,9 +7,13 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Path
+public @interface EndPoint
 {
     String method();
 
     String path();
+
+    String description() default "";
+
+    boolean deprecated() default false;
 }

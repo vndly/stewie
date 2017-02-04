@@ -1,6 +1,5 @@
 package com.mauriciotogneri.swagger.specs;
 
-import com.mauriciotogneri.swagger.annotations.endpoint.Error;
 import com.mauriciotogneri.swagger.annotations.endpoint.Response;
 
 public class Result
@@ -9,15 +8,15 @@ public class Result
     private final String[] produces;
     private final Class<?>[] types;
     private final Class<?> headers;
-    private final Error[] errors;
+    private final String description;
 
-    public Result(Response response)
+    public Result(Response responses)
     {
-        this.code = response.code();
-        this.produces = response.produces();
-        this.types = response.type();
-        this.headers = response.headers();
-        this.errors = response.errors();
+        this.code = responses.code();
+        this.produces = responses.produces();
+        this.types = responses.type();
+        this.headers = responses.headers();
+        this.description = responses.description();
     }
 
     public Integer code()
@@ -30,13 +29,30 @@ public class Result
         return produces;
     }
 
-    public Boolean isEmpty()
-    {
-        return (types.length == 0);
-    }
-
     public Class<?>[] types()
     {
         return types;
+    }
+
+    public Class<?> headers()
+    {
+        return headers;
+    }
+
+    public String description()
+    {
+        return description;
+    }
+
+    public static Result[] from(Response[] responses)
+    {
+        Result[] results = new Result[responses.length];
+
+        for (int i = 0; i < responses.length; i++)
+        {
+            results[i] = new Result(responses[i]);
+        }
+
+        return results;
     }
 }

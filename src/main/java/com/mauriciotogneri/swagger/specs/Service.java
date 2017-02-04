@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public final class Service implements Iterable<EndPoint>
+public final class Service implements Iterable<EndPointInfo>
 {
     private final File root;
 
@@ -17,9 +17,9 @@ public final class Service implements Iterable<EndPoint>
     }
 
     @Override
-    public Iterator<EndPoint> iterator()
+    public Iterator<EndPointInfo> iterator()
     {
-        final List<EndPoint> endPoints = new ArrayList<>();
+        final List<EndPointInfo> endPointInfos = new ArrayList<>();
 
         File[] roots = root.listFiles();
 
@@ -31,30 +31,30 @@ public final class Service implements Iterable<EndPoint>
 
                 if (!name.endsWith("Module"))
                 {
-                    EndPoint endPoint = new EndPoint(toString(), current);
-                    endPoints.add(endPoint);
+                    EndPointInfo endPointInfo = new EndPointInfo(toString(), current);
+                    endPointInfos.add(endPointInfo);
                 }
             }
         }
 
-        endPoints.sort(Comparator.comparing(EndPoint::name));
+        endPointInfos.sort(Comparator.comparing(EndPointInfo::name));
 
-        return new Iterator<EndPoint>()
+        return new Iterator<EndPointInfo>()
         {
             private int index = 0;
 
             @Override
             public boolean hasNext()
             {
-                return index < endPoints.size();
+                return index < endPointInfos.size();
             }
 
             @Override
-            public EndPoint next()
+            public EndPointInfo next()
             {
-                if (index < endPoints.size())
+                if (index < endPointInfos.size())
                 {
-                    return endPoints.get(index++);
+                    return endPointInfos.get(index++);
                 }
                 else
                 {

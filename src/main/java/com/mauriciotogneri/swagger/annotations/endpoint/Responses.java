@@ -9,9 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-public @interface Error
+public @interface Responses
 {
-    int code();
-
-    String[] errors() default {};
+    Response[] value() default {};
 }
