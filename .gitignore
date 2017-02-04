@@ -1,0 +1,10 @@
+# IntelliJ
+.idea/*
+target
+*.iml
+swagger.json
+config/
+
+# MAC OS X
+.DS_Store
+*/.DS_Store
