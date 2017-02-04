@@ -100,7 +100,7 @@ public final class SwaggerGenerator
                     paths.put(endPoint.path(), swaggerPath);
                 }
 
-                swaggerPath.put(endPoint.method().toString().toLowerCase(), endPoint.swaggerEndPoint());
+                swaggerPath.put(endPoint.method().toLowerCase(), endPoint.swaggerEndPoint());
             }
         }
 

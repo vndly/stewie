@@ -12,7 +12,6 @@ import com.mauriciotogneri.swagger.specs.parameters.HeaderParameter;
 import com.mauriciotogneri.swagger.specs.parameters.PathParameter;
 import com.mauriciotogneri.swagger.specs.parameters.UrlParameter;
 import com.mauriciotogneri.swagger.types.Header;
-import com.mauriciotogneri.swagger.types.Method;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public final class EndPoint
     private final String parent;
     private final String name;
     private final String path;
-    private final Method method;
+    private final String method;
     private final String description;
     private final HeaderParameter[] headerParameters;
     private final PathParameter pathParameters;
@@ -62,7 +61,7 @@ public final class EndPoint
         return path;
     }
 
-    public Method method()
+    public String method()
     {
         return method;
     }
@@ -89,15 +88,11 @@ public final class EndPoint
         String[] consumes = consumes();
         String[] produces = result.produces();
         List<SwaggerParameter> parameters = parameters(headerParameters, pathParameters, urlParameters, dataParameter);
-        SwaggerResponse response;
+        SwaggerResponse response = null;
 
         if (!result.isEmpty())
         {
             response = new SwaggerResponse(result.types());
-        }
-        else
-        {
-            response = new SwaggerResponse();
         }
 
         return new SwaggerEndPoint(name, description, parent, consumes, produces, parameters, String.valueOf(result.code()), response);

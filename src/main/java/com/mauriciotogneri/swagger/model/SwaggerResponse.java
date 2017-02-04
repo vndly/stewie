@@ -10,10 +10,4 @@ public final class SwaggerResponse
     {
         this.schema = null; // TODO new JsonSchemaPrinter().referenceObject(classDef);
     }
-
-    public SwaggerResponse()
-    {
-        this.schema = new JsonObject();
-        this.schema.addProperty("type", "string");
-    }
 }

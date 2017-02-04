@@ -21,7 +21,6 @@ public final class JsonHelper
 {
     private static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting()
-            //.registerTypeAdapter(DateTime.class, new DateTimeTypeAdapter())
             .registerTypeAdapterFactory(new EnumAdapterFactory())
             .create();
 
@@ -32,7 +31,6 @@ public final class JsonHelper
     public static Gson create()
     {
         GsonBuilder builder = new GsonBuilder();
-        //builder.registerTypeAdapter(DateTime.class, new DateTimeTypeAdapter());
 
         builder.setPrettyPrinting();
         builder.disableHtmlEscaping();
@@ -61,28 +59,6 @@ public final class JsonHelper
 
         return parser.parse(string);
     }
-
-    /*private static class DateTimeTypeAdapter implements JsonSerializer<DateTime>, JsonDeserializer<DateTime>
-    {
-        @Override
-        public JsonElement serialize(DateTime dateTime, Type type, JsonSerializationContext context)
-        {
-            return new JsonPrimitive(DateHelper.date(dateTime));
-        }
-
-        @Override
-        public DateTime deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException
-        {
-            try
-            {
-                return DateHelper.date(jsonElement.getAsString());
-            }
-            catch (Exception e)
-            {
-                throw new RuntimeException(String.format("Error parsing date: %s", jsonElement.getAsString()));
-            }
-        }
-    }*/
 
     private static class EnumAdapterFactory implements TypeAdapterFactory
     {

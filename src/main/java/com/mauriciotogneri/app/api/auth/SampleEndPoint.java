@@ -20,11 +20,11 @@ import java.util.Date;
 
 import static com.mauriciotogneri.swagger.types.Header.CONTENT_TYPE;
 import static com.mauriciotogneri.swagger.types.Header.COOKIE;
-import static com.mauriciotogneri.swagger.types.HttpCode.BAD_REQUEST;
-import static com.mauriciotogneri.swagger.types.HttpCode.METHOD_NOT_ALLOWED;
-import static com.mauriciotogneri.swagger.types.HttpCode.NOT_FOUND;
-import static com.mauriciotogneri.swagger.types.HttpCode.OK;
-import static com.mauriciotogneri.swagger.types.HttpCode.UNAUTHORIZED;
+import static com.mauriciotogneri.swagger.types.StatusCode.BAD_REQUEST;
+import static com.mauriciotogneri.swagger.types.StatusCode.METHOD_NOT_ALLOWED;
+import static com.mauriciotogneri.swagger.types.StatusCode.NOT_FOUND;
+import static com.mauriciotogneri.swagger.types.StatusCode.OK;
+import static com.mauriciotogneri.swagger.types.StatusCode.UNAUTHORIZED;
 import static com.mauriciotogneri.swagger.types.Method.POST;
 import static com.mauriciotogneri.swagger.types.MimeType.JSON;
 
