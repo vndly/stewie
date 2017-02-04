@@ -1,4 +1,4 @@
-package com.mauriciotogneri.swagger.annotations.endpoint;
+package com.mauriciotogneri.swagger.annotations.fields;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,10 +1,10 @@
 package com.mauriciotogneri.swagger.specs.parameters;
 
-import com.mauriciotogneri.swagger.annotations.endpoint.Default;
+import com.mauriciotogneri.swagger.annotations.fields.Default;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 import com.mauriciotogneri.swagger.model.SwaggerSchema;
 import com.mauriciotogneri.swagger.specs.Definitions;
-import com.mauriciotogneri.swagger.utils.Annotations;
+import com.mauriciotogneri.swagger.specs.Annotations;
 
 import java.lang.reflect.Field;
 

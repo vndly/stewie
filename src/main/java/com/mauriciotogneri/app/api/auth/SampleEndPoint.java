@@ -1,7 +1,6 @@
 package com.mauriciotogneri.app.api.auth;
 
 import com.mauriciotogneri.app.api.auth.SampleEndPoint.ParametersData;
-import com.mauriciotogneri.app.api.auth.SampleEndPoint.ParametersForm;
 import com.mauriciotogneri.app.api.auth.SampleEndPoint.ParametersPath;
 import com.mauriciotogneri.app.api.auth.SampleEndPoint.ParametersUrl;
 import com.mauriciotogneri.app.api.auth.SampleEndPoint.RequestHeaders;
@@ -9,15 +8,15 @@ import com.mauriciotogneri.app.api.auth.SampleEndPoint.ResponseHeaders;
 import com.mauriciotogneri.app.model.Error;
 import com.mauriciotogneri.app.model.Gender;
 import com.mauriciotogneri.app.model.Profile;
-import com.mauriciotogneri.swagger.annotations.endpoint.Default;
 import com.mauriciotogneri.swagger.annotations.endpoint.Description;
 import com.mauriciotogneri.swagger.annotations.endpoint.EndPoint;
-import com.mauriciotogneri.swagger.annotations.endpoint.Name;
-import com.mauriciotogneri.swagger.annotations.endpoint.Optional;
 import com.mauriciotogneri.swagger.annotations.endpoint.Parameters;
 import com.mauriciotogneri.swagger.annotations.endpoint.Response;
 import com.mauriciotogneri.swagger.annotations.endpoint.Responses;
+import com.mauriciotogneri.swagger.annotations.fields.Default;
 import com.mauriciotogneri.swagger.annotations.fields.Minimum;
+import com.mauriciotogneri.swagger.annotations.fields.Name;
+import com.mauriciotogneri.swagger.annotations.fields.Optional;
 
 import java.util.Date;
 
@@ -40,7 +39,6 @@ import static com.mauriciotogneri.swagger.types.StatusCode.UNAUTHORIZED;
         header = RequestHeaders.class,
         path = ParametersPath.class,
         url = ParametersUrl.class,
-        form = ParametersForm.class,
         data = ParametersData.class
 )
 @Responses({
@@ -111,10 +109,7 @@ public interface SampleEndPoint
 
         @Description("The date to filter")
         public Date date;
-    }
 
-    class ParametersForm
-    {
         @Description("The limit to filter")
         public Double limit;
 

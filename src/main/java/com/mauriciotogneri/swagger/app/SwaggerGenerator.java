@@ -1,6 +1,7 @@
 package com.mauriciotogneri.swagger.app;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mauriciotogneri.swagger.model.Swagger;
 import com.mauriciotogneri.swagger.model.SwaggerDefinitions;
 import com.mauriciotogneri.swagger.model.SwaggerInfo;
@@ -10,7 +11,6 @@ import com.mauriciotogneri.swagger.specs.Definitions;
 import com.mauriciotogneri.swagger.specs.EndPointInfo;
 import com.mauriciotogneri.swagger.specs.Service;
 import com.mauriciotogneri.swagger.specs.Services;
-import com.mauriciotogneri.swagger.utils.JsonHelper;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -66,7 +66,11 @@ public final class SwaggerGenerator
 
         Swagger swagger = new Swagger(new SwaggerInfo(version, title), host, basePath, Arrays.asList(protocol), tags, paths, swaggerDefinitions);
 
-        Gson gson = JsonHelper.create();
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        builder.disableHtmlEscaping();
+        Gson gson = builder.create();
+
         save(output, gson.toJson(swagger));
     }
 

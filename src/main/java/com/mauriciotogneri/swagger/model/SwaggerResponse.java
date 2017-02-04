@@ -1,7 +1,7 @@
 package com.mauriciotogneri.swagger.model;
 
 import com.mauriciotogneri.swagger.specs.Definitions;
-import com.mauriciotogneri.swagger.utils.Annotations;
+import com.mauriciotogneri.swagger.specs.Annotations;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -32,7 +32,7 @@ public final class SwaggerResponse
     {
         Map<String, SwaggerHeaderResponse> result = new HashMap<>();
 
-        for (Field field : headers.getFields())
+        for (Field field : headers.getDeclaredFields())
         {
             Annotations annotations = new Annotations(field);
 

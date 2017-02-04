@@ -1,6 +1,5 @@
 package com.mauriciotogneri.swagger.specs;
 
-import com.google.gson.JsonObject;
 import com.mauriciotogneri.swagger.model.SwaggerDefinitions;
 
 import java.util.HashMap;
@@ -18,7 +17,11 @@ public class Definitions
 
     public void add(String name, Class<?> clazz)
     {
-        classes.put(name, clazz);
+        if (!classes.containsKey(name))
+        {
+            classes.put(name, clazz);
+            // TODO: iterate recursively to find nested types
+        }
     }
 
     public SwaggerDefinitions swaggerDefinitions()
@@ -27,7 +30,9 @@ public class Definitions
 
         for (Entry<String, Class<?>> entry : classes.entrySet())
         {
-            definitions.put(entry.getKey(), new JsonObject()); // TODO
+            JsonSchema jsonSchema = new JsonSchema(entry.getValue());
+
+            definitions.put(entry.getKey(), jsonSchema.schema());
         }
 
         return definitions;

@@ -1,6 +1,6 @@
 package com.mauriciotogneri.swagger.specs.parameters;
 
-import com.mauriciotogneri.swagger.utils.Annotations;
+import com.mauriciotogneri.swagger.specs.Annotations;
 
 public final class PathParameter extends FieldParameter
 {

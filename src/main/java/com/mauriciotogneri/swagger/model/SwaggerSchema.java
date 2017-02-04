@@ -2,7 +2,7 @@ package com.mauriciotogneri.swagger.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.mauriciotogneri.swagger.specs.Definitions;
-import com.mauriciotogneri.swagger.utils.Annotations;
+import com.mauriciotogneri.swagger.specs.Annotations;
 
 import java.util.Date;
 
