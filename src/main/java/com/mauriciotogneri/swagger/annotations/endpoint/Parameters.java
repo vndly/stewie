@@ -17,5 +17,7 @@ public @interface Parameters
 
     Class<?> url() default Object.class;
 
+    Class<?> form() default Object.class;
+
     Class<?> data() default Object.class;
 }

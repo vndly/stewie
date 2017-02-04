@@ -1,6 +1,7 @@
 package com.mauriciotogneri.app.api.auth;
 
 import com.mauriciotogneri.app.api.auth.SampleEndPoint.ParametersData;
+import com.mauriciotogneri.app.api.auth.SampleEndPoint.ParametersForm;
 import com.mauriciotogneri.app.api.auth.SampleEndPoint.ParametersPath;
 import com.mauriciotogneri.app.api.auth.SampleEndPoint.ParametersUrl;
 import com.mauriciotogneri.app.api.auth.SampleEndPoint.RequestHeaders;
@@ -39,6 +40,7 @@ import static com.mauriciotogneri.swagger.types.StatusCode.UNAUTHORIZED;
         header = RequestHeaders.class,
         path = ParametersPath.class,
         url = ParametersUrl.class,
+        form = ParametersForm.class,
         data = ParametersData.class
 )
 @Responses({
@@ -103,7 +105,10 @@ public interface SampleEndPoint
 
         @Description("The date to filter")
         public Date date;
+    }
 
+    class ParametersForm
+    {
         @Description("The limit to filter")
         public Double limit;
 

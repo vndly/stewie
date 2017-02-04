@@ -7,6 +7,7 @@ import com.mauriciotogneri.swagger.model.SwaggerEndPoint;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 import com.mauriciotogneri.swagger.model.SwaggerResponse;
 import com.mauriciotogneri.swagger.specs.parameters.DataParameter;
+import com.mauriciotogneri.swagger.specs.parameters.FormParameter;
 import com.mauriciotogneri.swagger.specs.parameters.HeaderParameter;
 import com.mauriciotogneri.swagger.specs.parameters.PathParameter;
 import com.mauriciotogneri.swagger.specs.parameters.UrlParameter;
@@ -27,6 +28,7 @@ public final class EndPointInfo
     private final HeaderParameter[] headerParameters;
     private final PathParameter pathParameters;
     private final UrlParameter urlParameters;
+    private final FormParameter formParameters;
     private final DataParameter dataParameter;
     private final Result[] results;
 
@@ -47,6 +49,7 @@ public final class EndPointInfo
         this.headerParameters = HeaderParameter.from(parameters.header());
         this.pathParameters = new PathParameter(parameters.path());
         this.urlParameters = new UrlParameter(parameters.url());
+        this.formParameters = new FormParameter(parameters.form());
         this.dataParameter = new DataParameter(parameters.data());
         this.results = Result.from(responses.value());
     }
@@ -87,7 +90,7 @@ public final class EndPointInfo
     {
         String[] consumes = consumes();
         String[] produces = produces();
-        List<SwaggerParameter> parameters = parameters(headerParameters, pathParameters, urlParameters, dataParameter);
+        List<SwaggerParameter> parameters = parameters(headerParameters, pathParameters, urlParameters, formParameters, dataParameter);
         List<SwaggerResponse> responses = new ArrayList<>();
 
         for (Result result : results)
@@ -132,7 +135,7 @@ public final class EndPointInfo
         return result;
     }
 
-    private List<SwaggerParameter> parameters(HeaderParameter[] headerParameters, PathParameter pathParameters, UrlParameter urlParameters, DataParameter dataParameter)
+    private List<SwaggerParameter> parameters(HeaderParameter[] headerParameters, PathParameter pathParameters, UrlParameter urlParameters, FormParameter formParameters, DataParameter dataParameter)
     {
         List<SwaggerParameter> parameters = new ArrayList<>();
 
@@ -146,6 +149,7 @@ public final class EndPointInfo
 
         parameters.addAll(pathParameters.swaggerParameters());
         parameters.addAll(urlParameters.swaggerParameters());
+        parameters.addAll(formParameters.swaggerParameters());
 
         if (dataParameter.isPresent())
         {
