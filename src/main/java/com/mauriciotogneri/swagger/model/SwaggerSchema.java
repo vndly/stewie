@@ -1,14 +1,19 @@
 package com.mauriciotogneri.swagger.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
+@SuppressWarnings("ALL")
 public final class SwaggerSchema
 {
     private final String type;
     private final String format;
-    private final String[] enumValues;
     private final SwaggerSchema items;
     private final String $ref;
+
+    @SerializedName("enum")
+    private final String[] enumValues;
 
     // TODO
     // minimum
@@ -44,37 +49,27 @@ public final class SwaggerSchema
         return format;
     }
 
-    public SwaggerSchema items()
-    {
-        return items;
-    }
-
-    public String[] enumValues()
-    {
-        return enumValues;
-    }
-
     public static SwaggerSchema fromClass(Class<?> clazz)
     {
         if (clazz.equals(String.class))
         {
-            return new SwaggerSchema(TYPE_STRING, null, null, null, null);
+            return new Builder().type(TYPE_STRING).build();
         }
         else if (clazz.equals(Boolean.class) || clazz.equals(boolean.class))
         {
-            return new SwaggerSchema(TYPE_BOOLEAN, null, null, null, null);
+            return new Builder().type(TYPE_BOOLEAN).build();
         }
         else if (clazz.equals(Integer.class) || clazz.equals(int.class) || clazz.equals(Long.class) || clazz.equals(long.class))
         {
-            return new SwaggerSchema(TYPE_INTEGER, null, null, null, null);
+            return new Builder().type(TYPE_INTEGER).build();
         }
         else if (clazz.equals(Float.class) || clazz.equals(float.class) || clazz.equals(Double.class) || clazz.equals(double.class))
         {
-            return new SwaggerSchema(TYPE_NUMBER, null, null, null, null);
+            return new Builder().type(TYPE_NUMBER).build();
         }
         else if (clazz.equals(Date.class))
         {
-            return new SwaggerSchema(TYPE_STRING, "date-time", null, null, null);
+            return new Builder().type(TYPE_STRING).format("date-time").build();
         }
         else if (clazz.isEnum())
         {
@@ -87,17 +82,66 @@ public final class SwaggerSchema
                 values[i] = constants[i].toString();
             }
 
-            return new SwaggerSchema(TYPE_STRING, null, values, null, null);
+            return new Builder().type(TYPE_STRING).enumValues(values).build();
         }
         else if (clazz.isArray())
         {
             SwaggerSchema items = SwaggerSchema.fromClass(clazz.getComponentType());
 
-            return new SwaggerSchema(TYPE_ARRAY, null, null, items, null);
+            return new Builder().type(TYPE_ARRAY).items(items).build();
         }
         else
         {
-            return new SwaggerSchema(null, null, null, null, clazz.getCanonicalName());
+            return new Builder().ref(clazz.getCanonicalName()).build();
+        }
+    }
+
+    static class Builder
+    {
+        private String type;
+        private String format;
+        private String[] enumValues;
+        private SwaggerSchema items;
+        private String ref;
+
+        public Builder type(String type)
+        {
+            this.type = type;
+
+            return this;
+        }
+
+        public Builder format(String format)
+        {
+            this.format = format;
+
+            return this;
+        }
+
+        public Builder enumValues(String[] enumValues)
+        {
+            this.enumValues = enumValues;
+
+            return this;
+        }
+
+        public Builder items(SwaggerSchema items)
+        {
+            this.items = items;
+
+            return this;
+        }
+
+        public Builder ref(String ref)
+        {
+            this.ref = ref;
+
+            return this;
+        }
+
+        public SwaggerSchema build()
+        {
+            return new SwaggerSchema(type, format, enumValues, items, ref);
         }
     }
 }

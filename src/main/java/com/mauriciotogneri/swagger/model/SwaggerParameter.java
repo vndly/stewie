@@ -14,9 +14,6 @@ public final class SwaggerParameter
     @SerializedName("default")
     private final String defaultValue;
 
-    @SerializedName("enum")
-    private final String[] enumValues;
-
     public SwaggerParameter(String name, String in, SwaggerSchema schema, String defaultValue, Boolean required, String description)
     {
         this.name = name;
@@ -24,7 +21,6 @@ public final class SwaggerParameter
         this.schema = schema;
         this.description = description;
         this.required = required;
-        this.enumValues = schema.enumValues();
         this.defaultValue = defaultValue;
     }
 }
