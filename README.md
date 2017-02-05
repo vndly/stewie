@@ -20,6 +20,6 @@ and the dependency:
     <dependency>
         <groupId>com.github.mauriciotogneri</groupId>
         <artifactId>swagger-generator</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
     </dependency>
 ```
