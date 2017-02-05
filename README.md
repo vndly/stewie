@@ -17,7 +17,7 @@ Add the following code to your **pom.xml**:
 ```xml
     <dependency>
         <groupId>com.github.mauriciotogneri</groupId>
-        <artifactId>swagger</artifactId>
+        <artifactId>swagger-generator</artifactId>
         <version>1.0.0</version>
     </dependency>
 ```

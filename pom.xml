@@ -4,9 +4,9 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.mauriciotogneri</groupId>
-    <artifactId>swagger</artifactId>
-    <version>1.0.1</version>
+    <groupId>com.github.mauriciotogneri</groupId>
+    <artifactId>swagger-generator</artifactId>
+    <version>1.0.2</version>
     <name>swagger-generator</name>
     <url>https://github.com/mauriciotogneri/swagger-generator</url>
 
