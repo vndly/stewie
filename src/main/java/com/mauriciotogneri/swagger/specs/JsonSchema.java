@@ -2,10 +2,10 @@ package com.mauriciotogneri.swagger.specs;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.mauriciotogneri.swagger.model.SwaggerSchema;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import java.util.Date;
 
 public class JsonSchema
 {
@@ -51,53 +51,57 @@ public class JsonSchema
         for (Field field : clazz.getDeclaredFields())
         {
             String name = field.getName();
-            Class<?> type = field.getType();
+            TypeDefinition typeDef = new TypeDefinition(field.getType());
+
             JsonObject fieldObject = new JsonObject();
 
-            if (type.equals(String.class))
+            if (typeDef.isString())
             {
-                fieldObject.addProperty("type", "string");
+                fieldObject.addProperty("type", SwaggerSchema.TYPE_STRING);
             }
-            else if (type.equals(Boolean.class) || type.equals(boolean.class))
+            else if (typeDef.isBoolean())
             {
-                fieldObject.addProperty("type", "boolean");
+                fieldObject.addProperty("type", SwaggerSchema.TYPE_BOOLEAN);
             }
-            else if (type.equals(Integer.class) || type.equals(int.class) || type.equals(Long.class) || type.equals(long.class))
+            else if (typeDef.isInteger())
             {
-                fieldObject.addProperty("type", "integer");
+                fieldObject.addProperty("type", SwaggerSchema.TYPE_INTEGER);
             }
-            else if (type.equals(Float.class) || type.equals(float.class) || type.equals(Double.class) || type.equals(double.class))
+            else if (typeDef.isNumber())
             {
-                fieldObject.addProperty("type", "number");
+                fieldObject.addProperty("type", SwaggerSchema.TYPE_NUMBER);
             }
-            else if (type.equals(Date.class))
+            else if (typeDef.isDate())
             {
-                fieldObject.addProperty("type", "string");
+                fieldObject.addProperty("type", SwaggerSchema.TYPE_STRING);
                 fieldObject.addProperty("format", "date-time");
             }
-            else if (type.isEnum())
+            else if (typeDef.isEnum())
             {
-                Object[] constants = type.getEnumConstants();
+                Object[] constants = typeDef.enums();
 
-                String[] values = new String[constants.length];
+                JsonArray values = new JsonArray();
 
-                for (int i = 0; i < constants.length; i++)
+                for (Object constant : constants)
                 {
-                    values[i] = constants[i].toString();
+                    values.add(constant.toString());
                 }
 
-                fieldObject.addProperty("type", "string");
-                //TODO fieldObject.addProperty("emum", "");
+                fieldObject.addProperty("type", SwaggerSchema.TYPE_STRING);
+                fieldObject.add("enum", values);
             }
-            else if (type.isArray())
+            else if (typeDef.isArray())
             {
-                Class<?> componentType = type.getComponentType();
+                Class<?> componentType = typeDef.componentType();
 
-                //TODO fieldObject.addProperty("type", "");
+                fieldObject.addProperty("type", SwaggerSchema.TYPE_ARRAY);
+
+                JsonSchema componentSchema = new JsonSchema(componentType);
+                fieldObject.add("items", componentSchema.schema());
             }
             else
             {
-                String className = type.getCanonicalName();
+                String className = typeDef.canonicalName();
 
                 //TODO fieldObject.addProperty("$ref", "");
             }

@@ -3,9 +3,7 @@ package com.mauriciotogneri.swagger.model;
 import com.google.gson.annotations.SerializedName;
 import com.mauriciotogneri.swagger.specs.Annotations;
 import com.mauriciotogneri.swagger.specs.Definitions;
-
-import java.io.File;
-import java.util.Date;
+import com.mauriciotogneri.swagger.specs.TypeDefinition;
 
 @SuppressWarnings("ALL")
 public class SwaggerSchema
@@ -25,12 +23,12 @@ public class SwaggerSchema
     @SerializedName("enum")
     private final String[] enumValues;
 
-    private static final String TYPE_STRING = "string";
-    private static final String TYPE_BOOLEAN = "boolean";
-    private static final String TYPE_INTEGER = "integer";
-    private static final String TYPE_NUMBER = "number";
-    private static final String TYPE_FILE = "file";
-    private static final String TYPE_ARRAY = "array";
+    public static final String TYPE_STRING = "string";
+    public static final String TYPE_BOOLEAN = "boolean";
+    public static final String TYPE_INTEGER = "integer";
+    public static final String TYPE_NUMBER = "number";
+    public static final String TYPE_FILE = "file";
+    public static final String TYPE_ARRAY = "array";
 
     private SwaggerSchema(String type,
                           String format,
@@ -69,35 +67,35 @@ public class SwaggerSchema
         return format;
     }
 
-    public static SwaggerSchema fromClass(Class<?> clazz, Annotations annotations, Definitions definitions)
+    public static SwaggerSchema fromClass(TypeDefinition typeDef, Annotations annotations, Definitions definitions)
     {
-        if (clazz.equals(String.class))
+        if (typeDef.isString())
         {
             return new Builder(annotations).type(TYPE_STRING).build();
         }
-        else if (clazz.equals(Boolean.class) || clazz.equals(boolean.class))
+        else if (typeDef.isBoolean())
         {
             return new Builder(annotations).type(TYPE_BOOLEAN).build();
         }
-        else if (clazz.equals(Integer.class) || clazz.equals(int.class) || clazz.equals(Long.class) || clazz.equals(long.class))
+        else if (typeDef.isInteger())
         {
             return new Builder(annotations).type(TYPE_INTEGER).build();
         }
-        else if (clazz.equals(Float.class) || clazz.equals(float.class) || clazz.equals(Double.class) || clazz.equals(double.class))
+        else if (typeDef.isNumber())
         {
             return new Builder(annotations).type(TYPE_NUMBER).build();
         }
-        else if (clazz.equals(Date.class))
+        else if (typeDef.isDate())
         {
             return new Builder(annotations).type(TYPE_STRING).format("date-time").build();
         }
-        else if (clazz.equals(File.class))
+        else if (typeDef.isFile())
         {
             return new Builder(annotations).type(TYPE_FILE).build();
         }
-        else if (clazz.isEnum())
+        else if (typeDef.isEnum())
         {
-            Object[] constants = clazz.getEnumConstants();
+            Object[] constants = typeDef.enums();
 
             String[] values = new String[constants.length];
 
@@ -108,18 +106,18 @@ public class SwaggerSchema
 
             return new Builder(annotations).type(TYPE_STRING).enumValues(values).build();
         }
-        else if (clazz.isArray())
+        else if (typeDef.isArray())
         {
-            Class<?> componentType = clazz.getComponentType();
-            SwaggerSchema items = SwaggerSchema.fromClass(componentType, new Annotations(componentType), definitions);
+            Class<?> componentType = typeDef.componentType();
+            SwaggerSchema items = SwaggerSchema.fromClass(new TypeDefinition(componentType), new Annotations(componentType), definitions);
 
             return new Builder(annotations).type(TYPE_ARRAY).items(items).build();
         }
         else
         {
-            String name = clazz.getCanonicalName();
+            String name = typeDef.canonicalName();
 
-            definitions.add(name, clazz);
+            definitions.add(name, typeDef.clazz());
 
             return new Builder().ref(name).build();
         }

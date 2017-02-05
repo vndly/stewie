@@ -5,6 +5,7 @@ import com.mauriciotogneri.swagger.model.SwaggerParameter;
 import com.mauriciotogneri.swagger.model.SwaggerSchema;
 import com.mauriciotogneri.swagger.specs.Annotations;
 import com.mauriciotogneri.swagger.specs.Definitions;
+import com.mauriciotogneri.swagger.specs.TypeDefinition;
 
 import java.lang.reflect.Field;
 
@@ -47,7 +48,7 @@ public class HeaderParameter
         return new SwaggerParameter(
                 name,
                 "header",
-                SwaggerSchema.fromClass(clazz, new Annotations(clazz), definitions),
+                SwaggerSchema.fromClass(new TypeDefinition(clazz), new Annotations(clazz), definitions),
                 valueList(),
                 !optional,
                 description);

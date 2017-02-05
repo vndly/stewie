@@ -2,6 +2,7 @@ package com.mauriciotogneri.swagger.model;
 
 import com.mauriciotogneri.swagger.specs.Annotations;
 import com.mauriciotogneri.swagger.specs.Definitions;
+import com.mauriciotogneri.swagger.specs.TypeDefinition;
 
 import java.lang.reflect.Field;
 
@@ -16,7 +17,7 @@ public class SwaggerResponse
     public SwaggerResponse(Integer code, Class<?> clazz, Class<?> headers, String description, Definitions definitions)
     {
         this.code = code;
-        this.schema = clazz.equals(Object.class) ? null : SwaggerSchema.fromClass(clazz, new Annotations(clazz), definitions);
+        this.schema = clazz.equals(Object.class) ? null : SwaggerSchema.fromClass(new TypeDefinition(clazz), new Annotations(clazz), definitions);
         this.headers = headers.equals(Object.class) ? null : headers(headers, definitions);
         this.description = description;
     }
@@ -32,10 +33,11 @@ public class SwaggerResponse
 
         for (Field field : headers.getDeclaredFields())
         {
+            TypeDefinition typeDef = new TypeDefinition(field.getType());
             Annotations annotations = new Annotations(field);
 
             String name = annotations.name();
-            SwaggerSchema schema = SwaggerSchema.fromClass(field.getType(), new Annotations(field), definitions);
+            SwaggerSchema schema = SwaggerSchema.fromClass(typeDef, new Annotations(field), definitions);
             String description = annotations.description();
 
             result.put(name, new SwaggerHeaderResponse(schema.type(), schema.format(), description));

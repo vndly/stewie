@@ -4,6 +4,7 @@ import com.mauriciotogneri.swagger.model.SwaggerParameter;
 import com.mauriciotogneri.swagger.model.SwaggerSchema;
 import com.mauriciotogneri.swagger.specs.Annotations;
 import com.mauriciotogneri.swagger.specs.Definitions;
+import com.mauriciotogneri.swagger.specs.TypeDefinition;
 
 public class DataParameter
 {
@@ -26,11 +27,12 @@ public class DataParameter
 
     public SwaggerParameter swaggerParameter(Definitions definitions)
     {
+        TypeDefinition typeDef = new TypeDefinition(clazz);
         Annotations annotations = new Annotations(clazz);
 
         String name = "data";
         String type = "body";
-        SwaggerSchema schema = SwaggerSchema.fromClass(clazz, annotations, definitions);
+        SwaggerSchema schema = SwaggerSchema.fromClass(typeDef, annotations, definitions);
         String defaultValue = annotations.defaultValue();
         String description = annotations.description();
 
