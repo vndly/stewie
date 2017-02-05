@@ -16,33 +16,24 @@ public class Definitions
         this.classes = new HashMap<>();
     }
 
-    public void add(String name, Class<?> clazz)
+    public void add(TypeDefinition typeDef)
     {
-        if (!classes.containsKey(name))
+        if (!typeDef.isPrimitive())
         {
-            classes.put(name, clazz);
-            iterateObject(clazz);
-        }
-    }
-
-    private void iterateObject(Class<?> root)
-    {
-        for (Field field : root.getDeclaredFields())
-        {
-            TypeDefinition typeDef = new TypeDefinition(field.getType());
-
             if (typeDef.isArray())
             {
-                iterateObject(typeDef.componentType());
-            }
-            else if (!typeDef.isPrimitive())
-            {
-                String name = typeDef.name();
-
-                if (!classes.containsKey(name))
+                for (Field field : typeDef.fields())
                 {
-                    classes.put(name, typeDef.clazz());
-                    iterateObject(typeDef.clazz());
+                    add(new TypeDefinition(field.getType()));
+                }
+            }
+            else
+            {
+                String className = typeDef.name();
+
+                if (!classes.containsKey(className))
+                {
+                    classes.put(className, typeDef.clazz());
                 }
             }
         }
@@ -56,7 +47,7 @@ public class Definitions
         {
             JsonSchema jsonSchema = new JsonSchema(entry.getValue());
 
-            definitions.put(entry.getKey(), jsonSchema.schema());
+            definitions.put(entry.getKey(), jsonSchema.schema(false));
         }
 
         return definitions;

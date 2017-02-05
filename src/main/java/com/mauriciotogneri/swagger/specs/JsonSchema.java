@@ -4,40 +4,49 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mauriciotogneri.swagger.model.SwaggerSchema;
 
-import java.io.File;
 import java.lang.reflect.Field;
 
 public class JsonSchema
 {
-    private final Class<?> clazz;
+    private final TypeDefinition typeDef;
 
     public JsonSchema(Class<?> clazz)
     {
-        this.clazz = clazz;
+        this.typeDef = new TypeDefinition(clazz);
     }
 
-    public JsonObject schema()
+    public JsonObject schema(Boolean useReferences)
     {
         JsonObject schema = new JsonObject();
 
-        if (clazz.equals(File.class))
+        if (typeDef.isPrimitive())
         {
-            schema.addProperty("type", "file");
+            fillPrimitive(schema, typeDef);
         }
-        else if (clazz.isArray())
+        else if (typeDef.isArray())
         {
-            schema.addProperty("type", "array");
+            schema.addProperty("type", SwaggerSchema.TYPE_ARRAY);
+
+            JsonSchema componentSchema = new JsonSchema(typeDef.componentType());
+            schema.add("items", componentSchema.schema(true));
         }
         else
         {
-            schema.addProperty("type", "object");
-            schema.add("properties", properties());
-
-            JsonArray required = required();
-
-            if (required.size() > 0)
+            if (useReferences)
             {
-                schema.add("required", required);
+                schema.addProperty("$ref", String.format("#/definitions/%s", typeDef.name()));
+            }
+            else
+            {
+                schema.addProperty("type", "object");
+                schema.add("properties", properties());
+
+                JsonArray required = required();
+
+                if (required.size() > 0)
+                {
+                    schema.add("required", required);
+                }
             }
         }
 
@@ -48,7 +57,7 @@ public class JsonSchema
     {
         JsonObject properties = new JsonObject();
 
-        for (Field field : clazz.getDeclaredFields())
+        for (Field field : typeDef.fields())
         {
             Annotations annotations = new Annotations(field);
             String name = field.getName();
@@ -56,54 +65,16 @@ public class JsonSchema
 
             JsonObject fieldObject = new JsonObject();
 
-            if (typeDef.isString())
+            if (typeDef.isPrimitive())
             {
-                fieldObject.addProperty("type", SwaggerSchema.TYPE_STRING);
-            }
-            else if (typeDef.isBoolean())
-            {
-                fieldObject.addProperty("type", SwaggerSchema.TYPE_BOOLEAN);
-            }
-            else if (typeDef.isInteger())
-            {
-                fieldObject.addProperty("type", SwaggerSchema.TYPE_INTEGER);
-            }
-            else if (typeDef.isNumber())
-            {
-                fieldObject.addProperty("type", SwaggerSchema.TYPE_NUMBER);
-            }
-            else if (typeDef.isDate())
-            {
-                fieldObject.addProperty("type", SwaggerSchema.TYPE_STRING);
-                fieldObject.addProperty("format", "date-time");
-            }
-            else if (typeDef.isUri())
-            {
-                fieldObject.addProperty("type", SwaggerSchema.TYPE_STRING);
-                fieldObject.addProperty("format", "uri");
-            }
-            else if (typeDef.isEnum())
-            {
-                Object[] constants = typeDef.enums();
-
-                JsonArray values = new JsonArray();
-
-                for (Object constant : constants)
-                {
-                    values.add(constant.toString());
-                }
-
-                fieldObject.addProperty("type", SwaggerSchema.TYPE_STRING);
-                fieldObject.add("enum", values);
+                fillPrimitive(fieldObject, typeDef);
             }
             else if (typeDef.isArray())
             {
-                Class<?> componentType = typeDef.componentType();
-
                 fieldObject.addProperty("type", SwaggerSchema.TYPE_ARRAY);
 
-                JsonSchema componentSchema = new JsonSchema(componentType);
-                fieldObject.add("items", componentSchema.schema());
+                JsonSchema componentSchema = new JsonSchema(typeDef.componentType());
+                fieldObject.add("items", componentSchema.schema(true));
             }
             else
             {
@@ -116,6 +87,54 @@ public class JsonSchema
         }
 
         return properties;
+    }
+
+    private void fillPrimitive(JsonObject json, TypeDefinition typeDef)
+    {
+        if (typeDef.isString())
+        {
+            json.addProperty("type", SwaggerSchema.TYPE_STRING);
+        }
+        else if (typeDef.isBoolean())
+        {
+            json.addProperty("type", SwaggerSchema.TYPE_BOOLEAN);
+        }
+        else if (typeDef.isInteger())
+        {
+            json.addProperty("type", SwaggerSchema.TYPE_INTEGER);
+        }
+        else if (typeDef.isNumber())
+        {
+            json.addProperty("type", SwaggerSchema.TYPE_NUMBER);
+        }
+        else if (typeDef.isDate())
+        {
+            json.addProperty("type", SwaggerSchema.TYPE_STRING);
+            json.addProperty("format", "date-time");
+        }
+        else if (typeDef.isUri())
+        {
+            json.addProperty("type", SwaggerSchema.TYPE_STRING);
+            json.addProperty("format", "uri");
+        }
+        else if (typeDef.isFile())
+        {
+            json.addProperty("type", SwaggerSchema.TYPE_FILE);
+        }
+        else if (typeDef.isEnum())
+        {
+            Object[] constants = typeDef.enums();
+
+            JsonArray values = new JsonArray();
+
+            for (Object constant : constants)
+            {
+                values.add(constant.toString());
+            }
+
+            json.addProperty("type", SwaggerSchema.TYPE_STRING);
+            json.add("enum", values);
+        }
     }
 
     private void applyAnnotations(JsonObject json, Annotations annotations)
@@ -170,7 +189,7 @@ public class JsonSchema
     {
         JsonArray required = new JsonArray();
 
-        for (Field field : clazz.getDeclaredFields())
+        for (Field field : typeDef.fields())
         {
             Annotations annotations = new Annotations(field);
 

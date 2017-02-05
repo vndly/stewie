@@ -1,6 +1,7 @@
 package com.mauriciotogneri.swagger.specs;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.net.URI;
 import java.util.Date;
 
@@ -21,6 +22,11 @@ public class TypeDefinition
     public String name()
     {
         return clazz.getCanonicalName();
+    }
+
+    public Field[] fields()
+    {
+        return clazz.getDeclaredFields();
     }
 
     public Object[] enums()

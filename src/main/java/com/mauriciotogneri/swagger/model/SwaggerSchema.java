@@ -169,11 +169,9 @@ public class SwaggerSchema
         }
         else
         {
-            String name = typeDef.name();
+            definitions.add(typeDef);
 
-            definitions.add(name, typeDef.clazz());
-
-            return new Builder().ref(name).build();
+            return new Builder().ref(typeDef.name()).build();
         }
     }
 
