@@ -1,5 +1,10 @@
 package com.mauriciotogneri.swagger.app;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.github.fge.jackson.JsonLoader;
+import com.github.fge.jsonschema.core.report.ProcessingReport;
+import com.github.fge.jsonschema.main.JsonSchema;
+import com.github.fge.jsonschema.main.JsonSchemaFactory;
 import com.mauriciotogneri.swagger.model.Swagger;
 import com.mauriciotogneri.swagger.model.SwaggerDefinitions;
 import com.mauriciotogneri.swagger.model.SwaggerInfo;
@@ -10,6 +15,7 @@ import com.mauriciotogneri.swagger.specs.Services;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -42,8 +48,8 @@ public class SwaggerGenerator
         String host = properties.getProperty("host");
         String basePath = properties.getProperty("base");
 
-        SwaggerGenerator swaggerGenerator = new SwaggerGenerator();
-        swaggerGenerator.generate(input, output, title, version, protocol, host, basePath);
+        generate(input, output, title, version, protocol, host, basePath);
+        checkSchema();
     }
 
     private void generate(File input, File output, String title, String version, String protocol, String host, String basePath) throws IOException
@@ -64,5 +70,26 @@ public class SwaggerGenerator
                 swaggerDefinitions);
 
         swagger.save(output);
+    }
+
+    private void checkSchema()
+    {
+        try
+        {
+            JsonSchemaFactory factory = JsonSchemaFactory.byDefault();
+
+            File jsonSchemaFile = new File("config/swagger-schema.json");
+            URI uri = jsonSchemaFile.toURI();
+
+            JsonSchema schema = factory.getJsonSchema(uri.toString());
+            JsonNode json = JsonLoader.fromFile(new File("config/swagger.json"));
+
+            ProcessingReport report = schema.validate(json);
+            System.out.println(report);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

@@ -2,8 +2,7 @@
 .idea/*
 target
 *.iml
-swagger.json
-config/
+config/*
 
 # MAC OS X
 .DS_Store
