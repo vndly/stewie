@@ -1,6 +1,7 @@
 package com.mauriciotogneri.swagger.specs;
 
 import java.io.File;
+import java.net.URI;
 import java.util.Date;
 
 public class TypeDefinition
@@ -34,7 +35,7 @@ public class TypeDefinition
 
     public Boolean isString()
     {
-        return (clazz.equals(String.class));
+        return (clazz.equals(String.class) || (clazz.equals(Character.class) || (clazz.equals(char.class))));
     }
 
     public Boolean isBoolean()
@@ -55,6 +56,11 @@ public class TypeDefinition
     public Boolean isDate()
     {
         return (clazz.equals(Date.class));
+    }
+
+    public Boolean isUri()
+    {
+        return (clazz.equals(URI.class));
     }
 
     public Boolean isFile()

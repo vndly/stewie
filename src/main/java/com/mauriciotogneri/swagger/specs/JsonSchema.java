@@ -76,6 +76,11 @@ public class JsonSchema
                 fieldObject.addProperty("type", SwaggerSchema.TYPE_STRING);
                 fieldObject.addProperty("format", "date-time");
             }
+            else if (typeDef.isUri())
+            {
+                fieldObject.addProperty("type", SwaggerSchema.TYPE_STRING);
+                fieldObject.addProperty("format", "uri");
+            }
             else if (typeDef.isEnum())
             {
                 Object[] constants = typeDef.enums();

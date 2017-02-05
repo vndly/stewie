@@ -114,7 +114,7 @@ public interface SampleEndPoint
         public Double limit;
 
         @Description("The gender to filter")
-        public Gender[] gender;
+        public Gender gender;
     }
 
     @Description("The data parameter")

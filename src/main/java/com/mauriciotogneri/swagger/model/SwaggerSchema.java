@@ -139,6 +139,10 @@ public class SwaggerSchema
         {
             return new Builder(annotations).type(TYPE_STRING).format("date-time").build();
         }
+        else if (typeDef.isUri())
+        {
+            return new Builder(annotations).type(TYPE_STRING).format("uri").build();
+        }
         else if (typeDef.isFile())
         {
             return new Builder(annotations).type(TYPE_FILE).build();
