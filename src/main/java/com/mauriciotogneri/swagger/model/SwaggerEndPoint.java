@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("ALL")
-public final class SwaggerEndPoint
+public class SwaggerEndPoint
 {
     private final String[] tags;
     private final String summary;

@@ -1,6 +1,6 @@
 package com.mauriciotogneri.swagger.types;
 
-public class Header
+public final class Header
 {
     // request
     public static final String ACCEPT = "Accept";

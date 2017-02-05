@@ -1,9 +1,16 @@
 package com.mauriciotogneri.swagger.model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public final class Swagger
+public class Swagger
 {
     public final String swagger;
     public final SwaggerInfo info;
@@ -24,5 +31,30 @@ public final class Swagger
         this.schemes = schemes;
         this.paths = paths;
         this.definitions = definitions;
+    }
+
+    private String json()
+    {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        builder.disableHtmlEscaping();
+        Gson gson = builder.create();
+
+        return gson.toJson(this);
+    }
+
+    public void save(File file) throws IOException
+    {
+        File parent = file.getParentFile();
+
+        if (((parent == null) || parent.exists() || parent.mkdirs()) && (file.exists() || file.createNewFile()))
+        {
+            try (FileWriter fileWriter = new FileWriter(file.getAbsoluteFile()))
+            {
+                BufferedWriter bw = new BufferedWriter(fileWriter);
+                bw.write(json());
+                bw.close();
+            }
+        }
     }
 }

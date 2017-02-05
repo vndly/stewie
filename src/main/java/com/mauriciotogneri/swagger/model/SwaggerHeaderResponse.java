@@ -1,7 +1,7 @@
 package com.mauriciotogneri.swagger.model;
 
 @SuppressWarnings("ALL")
-public final class SwaggerHeaderResponse
+public class SwaggerHeaderResponse
 {
     private final String type;
     private final String format;

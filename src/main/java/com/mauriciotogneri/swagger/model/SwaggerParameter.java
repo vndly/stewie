@@ -3,7 +3,7 @@ package com.mauriciotogneri.swagger.model;
 import com.google.gson.annotations.SerializedName;
 
 @SuppressWarnings("ALL")
-public final class SwaggerParameter
+public class SwaggerParameter
 {
     private final String name;
     private final String in;

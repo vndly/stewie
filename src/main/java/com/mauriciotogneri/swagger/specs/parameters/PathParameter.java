@@ -2,7 +2,7 @@ package com.mauriciotogneri.swagger.specs.parameters;
 
 import com.mauriciotogneri.swagger.specs.Annotations;
 
-public final class PathParameter extends FieldParameter
+public class PathParameter extends FieldParameter
 {
     public PathParameter(Class<?> clazz)
     {

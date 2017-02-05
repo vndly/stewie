@@ -1,15 +1,15 @@
 package com.mauriciotogneri.swagger.specs;
 
-import com.mauriciotogneri.swagger.annotations.fields.Default;
 import com.mauriciotogneri.swagger.annotations.endpoint.Description;
-import com.mauriciotogneri.swagger.annotations.fields.Name;
-import com.mauriciotogneri.swagger.annotations.fields.Optional;
+import com.mauriciotogneri.swagger.annotations.fields.Default;
 import com.mauriciotogneri.swagger.annotations.fields.MaxItems;
 import com.mauriciotogneri.swagger.annotations.fields.MaxLength;
 import com.mauriciotogneri.swagger.annotations.fields.Maximum;
 import com.mauriciotogneri.swagger.annotations.fields.MinItems;
 import com.mauriciotogneri.swagger.annotations.fields.MinLength;
 import com.mauriciotogneri.swagger.annotations.fields.Minimum;
+import com.mauriciotogneri.swagger.annotations.fields.Name;
+import com.mauriciotogneri.swagger.annotations.fields.Optional;
 import com.mauriciotogneri.swagger.annotations.fields.Pattern;
 
 import java.lang.annotation.Annotation;

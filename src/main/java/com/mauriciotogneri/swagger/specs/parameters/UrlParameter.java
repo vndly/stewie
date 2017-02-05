@@ -1,6 +1,6 @@
 package com.mauriciotogneri.swagger.specs.parameters;
 
-public final class UrlParameter extends FieldParameter
+public class UrlParameter extends FieldParameter
 {
     public UrlParameter(Class<?> clazz)
     {

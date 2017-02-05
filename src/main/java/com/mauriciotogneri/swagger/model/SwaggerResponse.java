@@ -1,14 +1,14 @@
 package com.mauriciotogneri.swagger.model;
 
-import com.mauriciotogneri.swagger.specs.Definitions;
 import com.mauriciotogneri.swagger.specs.Annotations;
+import com.mauriciotogneri.swagger.specs.Definitions;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("ALL")
-public final class SwaggerResponse
+public class SwaggerResponse
 {
     private final transient Integer code;
     private final SwaggerSchema schema;

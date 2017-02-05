@@ -3,12 +3,12 @@ package com.mauriciotogneri.swagger.specs.parameters;
 import com.mauriciotogneri.swagger.annotations.fields.Default;
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 import com.mauriciotogneri.swagger.model.SwaggerSchema;
-import com.mauriciotogneri.swagger.specs.Definitions;
 import com.mauriciotogneri.swagger.specs.Annotations;
+import com.mauriciotogneri.swagger.specs.Definitions;
 
 import java.lang.reflect.Field;
 
-public final class HeaderParameter
+public class HeaderParameter
 {
     private final String name;
     private final String[] defaultValue;

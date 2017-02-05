@@ -17,7 +17,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class EndPointInfo
+public class EndPointInfo
 {
     private final String parent;
     private final String name;

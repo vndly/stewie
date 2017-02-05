@@ -1,6 +1,6 @@
 package com.mauriciotogneri.swagger.model;
 
-public final class SwaggerTag
+public class SwaggerTag
 {
     public final String name;
 

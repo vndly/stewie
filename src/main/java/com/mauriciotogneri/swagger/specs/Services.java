@@ -1,19 +1,64 @@
 package com.mauriciotogneri.swagger.specs;
 
+import com.mauriciotogneri.swagger.model.SwaggerPath;
+import com.mauriciotogneri.swagger.model.SwaggerTag;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
-public final class Services implements Iterable<Service>
+public class Services implements Iterable<Service>
 {
     private final File root;
 
     public Services(File root)
     {
         this.root = root;
+    }
+
+    public List<SwaggerTag> tags()
+    {
+        List<SwaggerTag> tags = new ArrayList<>();
+
+        for (Service service : this)
+        {
+            tags.add(new SwaggerTag(service.toString()));
+        }
+
+        return tags;
+    }
+
+    public Map<String, SwaggerPath> paths(Definitions definitions)
+    {
+        Map<String, SwaggerPath> paths = new HashMap<>();
+
+        for (Service service : this)
+        {
+            for (EndPointInfo endPointInfo : service)
+            {
+                String endPointPath = endPointInfo.path();
+                SwaggerPath swaggerPath;
+
+                if (paths.containsKey(endPointPath))
+                {
+                    swaggerPath = paths.get(endPointPath);
+                }
+                else
+                {
+                    swaggerPath = new SwaggerPath();
+                    paths.put(endPointInfo.path(), swaggerPath);
+                }
+
+                swaggerPath.put(endPointInfo.method().toLowerCase(), endPointInfo.swaggerEndPoint(definitions));
+            }
+        }
+
+        return paths;
     }
 
     @Override

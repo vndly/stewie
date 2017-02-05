@@ -1,30 +1,20 @@
 package com.mauriciotogneri.swagger.app;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.mauriciotogneri.swagger.model.Swagger;
 import com.mauriciotogneri.swagger.model.SwaggerDefinitions;
 import com.mauriciotogneri.swagger.model.SwaggerInfo;
 import com.mauriciotogneri.swagger.model.SwaggerPath;
-import com.mauriciotogneri.swagger.model.SwaggerTag;
 import com.mauriciotogneri.swagger.specs.Definitions;
-import com.mauriciotogneri.swagger.specs.EndPointInfo;
-import com.mauriciotogneri.swagger.specs.Service;
 import com.mauriciotogneri.swagger.specs.Services;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-public final class SwaggerGenerator
+public class SwaggerGenerator
 {
     public static void main(String[] args) throws Exception
     {
@@ -35,7 +25,7 @@ public final class SwaggerGenerator
         }
         else
         {
-            System.err.println("Usage: java -jar swagger.jar CONFIG_FILE");
+            System.err.println("Usage: java -jar swagger-generator.jar PATH_TO_CONFIG_FILE");
         }
     }
 
@@ -62,72 +52,18 @@ public final class SwaggerGenerator
         Services services = new Services(input);
 
         Definitions definitions = new Definitions();
-        List<SwaggerTag> tags = tags(services);
-        Map<String, SwaggerPath> paths = paths(services, definitions);
+        Map<String, SwaggerPath> paths = services.paths(definitions);
         SwaggerDefinitions swaggerDefinitions = definitions.swaggerDefinitions();
 
-        Swagger swagger = new Swagger(new SwaggerInfo(version, title), host, basePath, Arrays.asList(protocol), tags, paths, swaggerDefinitions);
+        Swagger swagger = new Swagger(
+                new SwaggerInfo(version, title),
+                host,
+                basePath,
+                Arrays.asList(protocol),
+                services.tags(),
+                paths,
+                swaggerDefinitions);
 
-        GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting();
-        builder.disableHtmlEscaping();
-        Gson gson = builder.create();
-
-        save(output, gson.toJson(swagger));
-    }
-
-    private List<SwaggerTag> tags(Services services)
-    {
-        List<SwaggerTag> tags = new ArrayList<>();
-
-        for (Service service : services)
-        {
-            tags.add(new SwaggerTag(service.toString()));
-        }
-
-        return tags;
-    }
-
-    private Map<String, SwaggerPath> paths(Services services, Definitions definitions)
-    {
-        Map<String, SwaggerPath> paths = new HashMap<>();
-
-        for (Service service : services)
-        {
-            for (EndPointInfo endPointInfo : service)
-            {
-                String endPointPath = endPointInfo.path();
-                SwaggerPath swaggerPath;
-
-                if (paths.containsKey(endPointPath))
-                {
-                    swaggerPath = paths.get(endPointPath);
-                }
-                else
-                {
-                    swaggerPath = new SwaggerPath();
-                    paths.put(endPointInfo.path(), swaggerPath);
-                }
-
-                swaggerPath.put(endPointInfo.method().toLowerCase(), endPointInfo.swaggerEndPoint(definitions));
-            }
-        }
-
-        return paths;
-    }
-
-    public void save(File file, String content) throws IOException
-    {
-        File parent = file.getParentFile();
-
-        if (((parent == null) || parent.exists() || parent.mkdirs()) && (file.exists() || file.createNewFile()))
-        {
-            try (FileWriter fileWriter = new FileWriter(file.getAbsoluteFile()))
-            {
-                BufferedWriter bw = new BufferedWriter(fileWriter);
-                bw.write(content);
-                bw.close();
-            }
-        }
+        swagger.save(output);
     }
 }

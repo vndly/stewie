@@ -2,10 +2,10 @@ package com.mauriciotogneri.swagger.specs.parameters;
 
 import com.mauriciotogneri.swagger.model.SwaggerParameter;
 import com.mauriciotogneri.swagger.model.SwaggerSchema;
-import com.mauriciotogneri.swagger.specs.Definitions;
 import com.mauriciotogneri.swagger.specs.Annotations;
+import com.mauriciotogneri.swagger.specs.Definitions;
 
-public final class DataParameter
+public class DataParameter
 {
     private final Class<?> clazz;
 

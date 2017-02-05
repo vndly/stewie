@@ -1,13 +1,13 @@
 package com.mauriciotogneri.swagger.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.mauriciotogneri.swagger.specs.Definitions;
 import com.mauriciotogneri.swagger.specs.Annotations;
+import com.mauriciotogneri.swagger.specs.Definitions;
 
 import java.util.Date;
 
 @SuppressWarnings("ALL")
-public final class SwaggerSchema
+public class SwaggerSchema
 {
     private final String type;
     private final String format;

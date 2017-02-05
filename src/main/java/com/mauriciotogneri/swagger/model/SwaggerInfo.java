@@ -1,6 +1,6 @@
 package com.mauriciotogneri.swagger.model;
 
-public final class SwaggerInfo
+public class SwaggerInfo
 {
     public final String version;
     public final String title;
