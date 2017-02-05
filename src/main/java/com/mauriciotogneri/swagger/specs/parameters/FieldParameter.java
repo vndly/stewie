@@ -25,24 +25,27 @@ public class FieldParameter
     {
         List<SwaggerParameter> parameters = new ArrayList<>();
 
-        for (Field field : clazz.getDeclaredFields())
+        if (!clazz.equals(Object.class))
         {
-            TypeDefinition typeDef = new TypeDefinition(field.getType());
-            Annotations annotations = new Annotations(field);
+            for (Field field : clazz.getDeclaredFields())
+            {
+                TypeDefinition typeDef = new TypeDefinition(field.getType());
+                Annotations annotations = new Annotations(field);
 
-            String name = field.getName();
-            Boolean optional = optional(annotations);
-            SwaggerSchema schema = SwaggerSchema.from(typeDef, new Annotations(field), definitions);
-            String defaultValue = annotations.defaultValue();
-            String description = annotations.description();
+                String name = field.getName();
+                Boolean optional = optional(annotations);
+                SwaggerSchema schema = SwaggerSchema.from(typeDef, new Annotations(field), definitions);
+                String defaultValue = annotations.defaultValue();
+                String description = annotations.description();
 
-            parameters.add(new SwaggerParameter(
-                    name,
-                    kind,
-                    schema,
-                    defaultValue,
-                    !optional,
-                    description));
+                parameters.add(new SwaggerParameter(
+                        name,
+                        kind,
+                        schema,
+                        defaultValue,
+                        !optional,
+                        description));
+            }
         }
 
         return parameters;

@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+@SuppressWarnings("ALL")
 public class Swagger
 {
     public final String swagger;

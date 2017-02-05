@@ -56,15 +56,22 @@ public class HeaderParameter
 
     public static HeaderParameter[] from(Class<?> clazz)
     {
-        Field[] fields = clazz.getDeclaredFields();
-
-        HeaderParameter[] result = new HeaderParameter[fields.length];
-
-        for (int i = 0; i < fields.length; i++)
+        if (!clazz.equals(Object.class))
         {
-            result[i] = new HeaderParameter(fields[i]);
-        }
+            Field[] fields = clazz.getDeclaredFields();
 
-        return result;
+            HeaderParameter[] result = new HeaderParameter[fields.length];
+
+            for (int i = 0; i < fields.length; i++)
+            {
+                result[i] = new HeaderParameter(fields[i]);
+            }
+
+            return result;
+        }
+        else
+        {
+            return new HeaderParameter[0];
+        }
     }
 }

@@ -20,11 +20,6 @@ public class DataParameter
         return !clazz.equals(Object.class);
     }
 
-    public Class<?> type()
-    {
-        return clazz;
-    }
-
     public SwaggerParameter swaggerParameter(Definitions definitions)
     {
         TypeDefinition typeDef = new TypeDefinition(clazz);

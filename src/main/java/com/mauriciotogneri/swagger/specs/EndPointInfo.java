@@ -46,11 +46,24 @@ public class EndPointInfo
         this.method = endPoint.method();
         this.description = endPoint.description().isEmpty() ? null : endPoint.description();
         this.deprecated = endPoint.deprecated();
-        this.headerParameters = HeaderParameter.from(parameters.header());
-        this.pathParameters = new PathParameter(parameters.path());
-        this.urlParameters = new UrlParameter(parameters.url());
-        this.formParameters = new FormParameter(parameters.form());
-        this.dataParameter = new DataParameter(parameters.data());
+
+        if (parameters != null)
+        {
+            this.headerParameters = HeaderParameter.from(parameters.header());
+            this.pathParameters = new PathParameter(parameters.path());
+            this.urlParameters = new UrlParameter(parameters.url());
+            this.formParameters = new FormParameter(parameters.form());
+            this.dataParameter = new DataParameter(parameters.data());
+        }
+        else
+        {
+            this.headerParameters = new HeaderParameter[0];
+            this.pathParameters = new PathParameter(Object.class);
+            this.urlParameters = new UrlParameter(Object.class);
+            this.formParameters = new FormParameter(Object.class);
+            this.dataParameter = new DataParameter(Object.class);
+        }
+
         this.results = Result.from(responses.value());
     }
 

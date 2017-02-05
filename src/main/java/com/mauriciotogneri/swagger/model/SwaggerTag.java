@@ -1,5 +1,6 @@
 package com.mauriciotogneri.swagger.model;
 
+@SuppressWarnings("ALL")
 public class SwaggerTag
 {
     public final String name;

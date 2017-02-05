@@ -1,5 +1,6 @@
 package com.mauriciotogneri.swagger.model;
 
+@SuppressWarnings("ALL")
 public class SwaggerInfo
 {
     public final String version;
