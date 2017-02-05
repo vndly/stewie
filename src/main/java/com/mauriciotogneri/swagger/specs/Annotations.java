@@ -2,6 +2,7 @@ package com.mauriciotogneri.swagger.specs;
 
 import com.mauriciotogneri.swagger.annotations.endpoint.Description;
 import com.mauriciotogneri.swagger.annotations.fields.Default;
+import com.mauriciotogneri.swagger.annotations.fields.Format;
 import com.mauriciotogneri.swagger.annotations.fields.MaxItems;
 import com.mauriciotogneri.swagger.annotations.fields.MaxLength;
 import com.mauriciotogneri.swagger.annotations.fields.Maximum;
@@ -48,6 +49,13 @@ public class Annotations
         Description description = annotation(Description.class);
 
         return (description != null) ? description.value() : null;
+    }
+
+    public String format()
+    {
+        Format format = annotation(Format.class);
+
+        return (format != null) ? format.value() : null;
     }
 
     public String pattern()

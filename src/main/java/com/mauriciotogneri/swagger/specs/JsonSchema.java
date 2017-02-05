@@ -3,6 +3,7 @@ package com.mauriciotogneri.swagger.specs;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.Date;
 
@@ -19,7 +20,11 @@ public class JsonSchema
     {
         JsonObject schema = new JsonObject();
 
-        if (clazz.isArray())
+        if (clazz.equals(File.class))
+        {
+            schema.addProperty("type", "file");
+        }
+        else if (clazz.isArray())
         {
             schema.addProperty("type", "array");
         }

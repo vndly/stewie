@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.mauriciotogneri.swagger.specs.Annotations;
 import com.mauriciotogneri.swagger.specs.Definitions;
 
+import java.io.File;
 import java.util.Date;
 
 @SuppressWarnings("ALL")
@@ -28,6 +29,7 @@ public class SwaggerSchema
     private static final String TYPE_BOOLEAN = "boolean";
     private static final String TYPE_INTEGER = "integer";
     private static final String TYPE_NUMBER = "number";
+    private static final String TYPE_FILE = "file";
     private static final String TYPE_ARRAY = "array";
 
     private SwaggerSchema(String type,
@@ -89,6 +91,10 @@ public class SwaggerSchema
         {
             return new Builder(annotations).type(TYPE_STRING).format("date-time").build();
         }
+        else if (clazz.equals(File.class))
+        {
+            return new Builder(annotations).type(TYPE_FILE).build();
+        }
         else if (clazz.isEnum())
         {
             Object[] constants = clazz.getEnumConstants();
@@ -147,6 +153,7 @@ public class SwaggerSchema
             this.maxLength = annotations.maxLength();
             this.minItems = annotations.minItems();
             this.maxItems = annotations.maxItems();
+            this.format = annotations.format();
         }
 
         public Builder type(String type)
