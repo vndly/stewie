@@ -10,7 +10,6 @@ public class SwaggerParameter
     private final SwaggerSchema schema;
     private final String description;
     private final Boolean required;
-
     private final String type;
     private final String format;
     private final SwaggerSchema items;
@@ -34,7 +33,6 @@ public class SwaggerParameter
         this.in = in;
         this.description = description;
         this.required = required;
-
         this.type = schema.type();
         this.format = schema.format();
         this.items = schema.items();
@@ -45,17 +43,8 @@ public class SwaggerParameter
         this.maxLength = schema.maxLength();
         this.minItems = schema.minItems();
         this.maxItems = schema.maxItems();
+        this.schema = schema.schema();
         this.enums = schema.enums();
-
-        if (schema.hasRef())
-        {
-            this.schema = schema;
-        }
-        else
-        {
-            this.schema = null;
-        }
-
         this.defaultValue = defaultValue;
     }
 }

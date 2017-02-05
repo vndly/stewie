@@ -112,9 +112,9 @@ public class SwaggerSchema
         return enums;
     }
 
-    public Boolean hasRef()
+    public SwaggerSchema schema()
     {
-        return ($ref != null);
+        return ($ref != null) ? this : null;
     }
 
     public static SwaggerSchema fromClass(TypeDefinition typeDef, Annotations annotations, Definitions definitions)
