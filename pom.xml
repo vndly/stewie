@@ -6,10 +6,17 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.mauriciotogneri</groupId>
     <artifactId>swagger-generator</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <name>Swagger Generator</name>
     <packaging>jar</packaging>
     <url>https://github.com/mauriciotogneri/swagger-generator</url>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://github.com/mauriciotogneri/swagger-generator/blob/master/LICENSE.md</url>
+            <distribution>site</distribution>
+        </license>
+    </licenses>
 
     <build>
         <plugins>
