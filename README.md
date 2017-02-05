@@ -13,7 +13,9 @@ Add the following code to your **pom.xml**:
         </repository>
     </repositories>
 ```
-   
+
+and the dependency:
+
 ```xml
     <dependency>
         <groupId>com.github.mauriciotogneri</groupId>
