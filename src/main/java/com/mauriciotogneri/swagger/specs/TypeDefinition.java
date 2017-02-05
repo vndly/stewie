@@ -18,7 +18,7 @@ public class TypeDefinition
         return clazz;
     }
 
-    public String canonicalName()
+    public String name()
     {
         return clazz.getCanonicalName();
     }

@@ -169,7 +169,7 @@ public class SwaggerSchema
         }
         else
         {
-            String name = typeDef.canonicalName();
+            String name = typeDef.name();
 
             definitions.add(name, typeDef.clazz());
 

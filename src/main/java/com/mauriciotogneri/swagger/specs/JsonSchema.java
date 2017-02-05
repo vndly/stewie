@@ -106,7 +106,7 @@ public class JsonSchema
             }
             else
             {
-                String className = typeDef.canonicalName();
+                String className = typeDef.name();
 
                 //TODO fieldObject.addProperty("$ref", "");
             }

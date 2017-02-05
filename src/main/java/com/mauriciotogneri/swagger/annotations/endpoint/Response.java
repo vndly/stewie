@@ -13,11 +13,11 @@ public @interface Response
 {
     int code();
 
+    String description();
+
     String[] produces() default {};
 
     Class<?> type() default Object.class;
 
     Class<?> headers() default Object.class;
-
-    String description() default "";
 }
