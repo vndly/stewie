@@ -21,7 +21,7 @@ public class SwaggerSchema
     private final String $ref;
 
     @SerializedName("enum")
-    private final String[] enumValues;
+    private final String[] enums;
 
     public static final String TYPE_STRING = "string";
     public static final String TYPE_BOOLEAN = "boolean";
@@ -32,7 +32,7 @@ public class SwaggerSchema
 
     private SwaggerSchema(String type,
                           String format,
-                          String[] enumValues,
+                          String[] enums,
                           SwaggerSchema items,
                           String pattern,
                           Integer minimum,
@@ -45,7 +45,7 @@ public class SwaggerSchema
     {
         this.type = type;
         this.format = format;
-        this.enumValues = enumValues;
+        this.enums = enums;
         this.items = items;
         this.$ref = (ref != null) ? String.format("#/definitions/%s", ref) : null;
         this.pattern = pattern;
@@ -65,6 +65,56 @@ public class SwaggerSchema
     public String format()
     {
         return format;
+    }
+
+    public SwaggerSchema items()
+    {
+        return items;
+    }
+
+    public String pattern()
+    {
+        return pattern;
+    }
+
+    public Integer minimum()
+    {
+        return minimum;
+    }
+
+    public Integer maximum()
+    {
+        return maximum;
+    }
+
+    public Integer minLength()
+    {
+        return minLength;
+    }
+
+    public Integer maxLength()
+    {
+        return maxLength;
+    }
+
+    public Integer minItems()
+    {
+        return minItems;
+    }
+
+    public Integer maxItems()
+    {
+        return maxItems;
+    }
+
+    public String[] enums()
+    {
+        return enums;
+    }
+
+    public Boolean hasRef()
+    {
+        return ($ref != null);
     }
 
     public static SwaggerSchema fromClass(TypeDefinition typeDef, Annotations annotations, Definitions definitions)
