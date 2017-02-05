@@ -26,33 +26,35 @@ import java.util.Properties;
 
 public final class SwaggerGenerator
 {
-    private SwaggerGenerator()
-    {
-    }
-
     public static void main(String[] args) throws Exception
     {
         if (args.length >= 1)
         {
-            Properties properties = new Properties();
-            properties.load(new FileInputStream(args[0]));
-
-            File input = new File(properties.getProperty("input"));
-            File output = new File(properties.getProperty("output"));
-
-            String title = properties.getProperty("title");
-            String version = properties.getProperty("version");
-            String protocol = properties.getProperty("protocol");
-            String host = properties.getProperty("host");
-            String basePath = properties.getProperty("base");
-
             SwaggerGenerator swaggerGenerator = new SwaggerGenerator();
-            swaggerGenerator.generate(input, output, title, version, protocol, host, basePath);
+            swaggerGenerator.generate(new File(args[0]));
         }
         else
         {
             System.err.println("Usage: java -jar swagger.jar CONFIG_FILE");
         }
+    }
+
+    public void generate(File config) throws IOException
+    {
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(config));
+
+        File input = new File(properties.getProperty("input"));
+        File output = new File(properties.getProperty("output"));
+
+        String title = properties.getProperty("title");
+        String version = properties.getProperty("version");
+        String protocol = properties.getProperty("protocol");
+        String host = properties.getProperty("host");
+        String basePath = properties.getProperty("base");
+
+        SwaggerGenerator swaggerGenerator = new SwaggerGenerator();
+        swaggerGenerator.generate(input, output, title, version, protocol, host, basePath);
     }
 
     private void generate(File input, File output, String title, String version, String protocol, String host, String basePath) throws IOException
