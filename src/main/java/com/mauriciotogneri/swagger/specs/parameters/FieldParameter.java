@@ -32,7 +32,7 @@ public class FieldParameter
 
             String name = field.getName();
             Boolean optional = optional(annotations);
-            SwaggerSchema schema = SwaggerSchema.fromClass(typeDef, new Annotations(field), definitions);
+            SwaggerSchema schema = SwaggerSchema.from(typeDef, new Annotations(field), definitions);
             String defaultValue = annotations.defaultValue();
             String description = annotations.description();
 

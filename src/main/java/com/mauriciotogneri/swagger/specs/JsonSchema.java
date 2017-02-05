@@ -50,6 +50,7 @@ public class JsonSchema
 
         for (Field field : clazz.getDeclaredFields())
         {
+            Annotations annotations = new Annotations(field);
             String name = field.getName();
             TypeDefinition typeDef = new TypeDefinition(field.getType());
 
@@ -106,15 +107,63 @@ public class JsonSchema
             }
             else
             {
-                String className = typeDef.name();
-
-                //TODO fieldObject.addProperty("$ref", "");
+                fieldObject.addProperty("$ref", String.format("#/definitions/%s", typeDef.name()));
             }
+
+            applyAnnotations(fieldObject, annotations);
 
             properties.add(name, fieldObject);
         }
 
         return properties;
+    }
+
+    private void applyAnnotations(JsonObject json, Annotations annotations)
+    {
+        if (annotations.description() != null)
+        {
+            json.addProperty("description", annotations.description());
+        }
+
+        if (annotations.format() != null)
+        {
+            json.addProperty("format", annotations.format());
+        }
+
+        if (annotations.pattern() != null)
+        {
+            json.addProperty("pattern", annotations.pattern());
+        }
+
+        if (annotations.minimum() != null)
+        {
+            json.addProperty("minimum", annotations.maximum());
+        }
+
+        if (annotations.maximum() != null)
+        {
+            json.addProperty("maximum", annotations.maximum());
+        }
+
+        if (annotations.minLength() != null)
+        {
+            json.addProperty("minLength", annotations.minLength());
+        }
+
+        if (annotations.maxLength() != null)
+        {
+            json.addProperty("maxLength", annotations.maxLength());
+        }
+
+        if (annotations.minItems() != null)
+        {
+            json.addProperty("minItems", annotations.minItems());
+        }
+
+        if (annotations.maxItems() != null)
+        {
+            json.addProperty("maxItems", annotations.maxItems());
+        }
     }
 
     private JsonArray required()

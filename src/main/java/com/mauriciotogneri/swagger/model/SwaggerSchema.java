@@ -117,7 +117,7 @@ public class SwaggerSchema
         return ($ref != null) ? this : null;
     }
 
-    public static SwaggerSchema fromClass(TypeDefinition typeDef, Annotations annotations, Definitions definitions)
+    public static SwaggerSchema from(TypeDefinition typeDef, Annotations annotations, Definitions definitions)
     {
         if (typeDef.isString())
         {
@@ -163,7 +163,7 @@ public class SwaggerSchema
         else if (typeDef.isArray())
         {
             Class<?> componentType = typeDef.componentType();
-            SwaggerSchema items = SwaggerSchema.fromClass(new TypeDefinition(componentType), new Annotations(componentType), definitions);
+            SwaggerSchema items = SwaggerSchema.from(new TypeDefinition(componentType), new Annotations(componentType), definitions);
 
             return new Builder(annotations).type(TYPE_ARRAY).items(items).build();
         }

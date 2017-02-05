@@ -32,7 +32,7 @@ public class DataParameter
 
         String name = "data";
         String type = "body";
-        SwaggerSchema schema = SwaggerSchema.fromClass(typeDef, annotations, definitions);
+        SwaggerSchema schema = SwaggerSchema.from(typeDef, annotations, definitions);
         String defaultValue = annotations.defaultValue();
         String description = annotations.description();
 
