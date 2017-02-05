@@ -15,7 +15,7 @@ import com.mauriciotogneri.swagger.specs.Services;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URI;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -49,7 +49,7 @@ public class SwaggerGenerator
         String basePath = properties.getProperty("base");
 
         generate(input, output, title, version, protocol, host, basePath);
-        checkSchema();
+        checkSchema(output);
     }
 
     private void generate(File input, File output, String title, String version, String protocol, String host, String basePath) throws IOException
@@ -72,17 +72,14 @@ public class SwaggerGenerator
         swagger.save(output);
     }
 
-    private void checkSchema()
+    private void checkSchema(File output)
     {
         try
         {
             JsonSchemaFactory factory = JsonSchemaFactory.byDefault();
-
-            File jsonSchemaFile = new File("config/swagger-schema.json");
-            URI uri = jsonSchemaFile.toURI();
-
-            JsonSchema schema = factory.getJsonSchema(uri.toString());
-            JsonNode json = JsonLoader.fromFile(new File("config/swagger.json"));
+            URL schemaPath = getClass().getResource("/swagger-schema.json");
+            JsonSchema schema = factory.getJsonSchema(schemaPath.toString());
+            JsonNode json = JsonLoader.fromFile(output);
 
             ProcessingReport report = schema.validate(json);
             System.out.println(report);
