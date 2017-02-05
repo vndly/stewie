@@ -240,7 +240,18 @@ public class SwaggerSchema
 
         public SwaggerSchema build()
         {
-            return new SwaggerSchema(type, format, enumValues, items, pattern, minimum, maximum, minLength, maxLength, minItems, maxItems, ref);
+            return new SwaggerSchema(type,
+                                     format,
+                                     enumValues,
+                                     items,
+                                     pattern,
+                                     minimum,
+                                     maximum,
+                                     minLength,
+                                     maxLength,
+                                     minItems,
+                                     maxItems,
+                                     ref);
         }
     }
 }
