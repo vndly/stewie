@@ -80,48 +80,48 @@ public interface SampleEndPoint
     {
         @Name(CONTENT_TYPE)
         @Default(JSON)
-        public String contentType;
+        String contentType;
 
         @Optional
         @Name(COOKIE)
         @Description("The session cookie")
-        public String cookie;
+        String cookie;
     }
 
     class ResponseHeaders
     {
         @Name("Token")
         @Description("The authentication token")
-        public String token;
+        String token;
     }
 
     class ParametersPath
     {
         @Description("The resource id")
         @Minimum(1)
-        public Long id;
+        Long id;
     }
 
     class ParametersUrl
     {
         @Description("The filter switch")
-        public Boolean filter;
+        Boolean filter;
 
         @Description("The date to filter")
-        public Date date;
+        Date date;
 
         @Description("The limit to filter")
-        public Double limit;
+        Double limit;
 
         @Description("The gender to filter")
-        public Gender gender;
+        Gender gender;
     }
 
     @Description("The data parameter")
     class ParametersData
     {
-        public String email;
+        String email;
 
-        public String password;
+        String password;
     }
 }
