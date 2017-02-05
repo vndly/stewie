@@ -4,8 +4,8 @@ import com.mauriciotogneri.swagger.annotations.fields.Format;
 
 public class Profile
 {
-    public Long id;
+    Long id;
 
     @Format("email")
-    public String email;
+    String email;
 }

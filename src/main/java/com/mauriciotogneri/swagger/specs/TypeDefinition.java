@@ -77,4 +77,9 @@ public class TypeDefinition
     {
         return (clazz.isArray());
     }
+
+    public Boolean isPrimitive()
+    {
+        return (isString() || isBoolean() || isInteger() || isNumber() || isDate() || isUri() || isFile() || isEnum());
+    }
 }
