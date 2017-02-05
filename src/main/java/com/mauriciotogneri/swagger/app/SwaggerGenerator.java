@@ -3,7 +3,7 @@ package com.mauriciotogneri.swagger.app;
 import com.mauriciotogneri.swagger.model.Swagger;
 import com.mauriciotogneri.swagger.model.SwaggerDefinitions;
 import com.mauriciotogneri.swagger.model.SwaggerInfo;
-import com.mauriciotogneri.swagger.model.SwaggerPath;
+import com.mauriciotogneri.swagger.model.SwaggerPathList;
 import com.mauriciotogneri.swagger.specs.Definitions;
 import com.mauriciotogneri.swagger.specs.Services;
 
@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Properties;
 
 public class SwaggerGenerator
@@ -52,7 +51,7 @@ public class SwaggerGenerator
         Services services = new Services(input);
 
         Definitions definitions = new Definitions();
-        Map<String, SwaggerPath> paths = services.paths(definitions);
+        SwaggerPathList paths = services.paths(definitions);
         SwaggerDefinitions swaggerDefinitions = definitions.swaggerDefinitions();
 
         Swagger swagger = new Swagger(

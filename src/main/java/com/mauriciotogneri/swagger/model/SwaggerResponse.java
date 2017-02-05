@@ -4,15 +4,13 @@ import com.mauriciotogneri.swagger.specs.Annotations;
 import com.mauriciotogneri.swagger.specs.Definitions;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
 
 @SuppressWarnings("ALL")
 public class SwaggerResponse
 {
     private final transient Integer code;
     private final SwaggerSchema schema;
-    private final Map<String, SwaggerHeaderResponse> headers;
+    private final SwaggerHeaderResponseList headers;
     private final String description;
 
     public SwaggerResponse(Integer code, Class<?> clazz, Class<?> headers, String description, Definitions definitions)
@@ -28,9 +26,9 @@ public class SwaggerResponse
         return String.valueOf(code);
     }
 
-    private Map<String, SwaggerHeaderResponse> headers(Class<?> headers, Definitions definitions)
+    private SwaggerHeaderResponseList headers(Class<?> headers, Definitions definitions)
     {
-        Map<String, SwaggerHeaderResponse> result = new HashMap<>();
+        SwaggerHeaderResponseList result = new SwaggerHeaderResponseList();
 
         for (Field field : headers.getDeclaredFields())
         {

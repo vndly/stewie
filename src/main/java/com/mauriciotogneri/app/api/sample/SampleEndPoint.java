@@ -1,10 +1,10 @@
-package com.mauriciotogneri.app.api.auth;
+package com.mauriciotogneri.app.api.sample;
 
-import com.mauriciotogneri.app.api.auth.SampleEndPoint.ParametersData;
-import com.mauriciotogneri.app.api.auth.SampleEndPoint.ParametersPath;
-import com.mauriciotogneri.app.api.auth.SampleEndPoint.ParametersUrl;
-import com.mauriciotogneri.app.api.auth.SampleEndPoint.RequestHeaders;
-import com.mauriciotogneri.app.api.auth.SampleEndPoint.ResponseHeaders;
+import com.mauriciotogneri.app.api.sample.SampleEndPoint.ParametersData;
+import com.mauriciotogneri.app.api.sample.SampleEndPoint.ParametersPath;
+import com.mauriciotogneri.app.api.sample.SampleEndPoint.ParametersUrl;
+import com.mauriciotogneri.app.api.sample.SampleEndPoint.RequestHeaders;
+import com.mauriciotogneri.app.api.sample.SampleEndPoint.ResponseHeaders;
 import com.mauriciotogneri.app.model.Error;
 import com.mauriciotogneri.app.model.Gender;
 import com.mauriciotogneri.app.model.Profile;

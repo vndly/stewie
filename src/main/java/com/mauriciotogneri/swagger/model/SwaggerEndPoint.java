@@ -1,8 +1,6 @@
 package com.mauriciotogneri.swagger.model;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @SuppressWarnings("ALL")
 public class SwaggerEndPoint
@@ -14,7 +12,7 @@ public class SwaggerEndPoint
     private final String[] produces;
     private final Boolean deprecated;
     private final List<SwaggerParameter> parameters;
-    private final Map<String, SwaggerResponse> responses;
+    private final SwaggerResponseList responses;
 
     public SwaggerEndPoint(String summary, String description, Boolean deprecated, String tag, String[] consumes, String[] produces, List<SwaggerParameter> parameters, List<SwaggerResponse> responses)
     {
@@ -25,7 +23,7 @@ public class SwaggerEndPoint
         this.consumes = (consumes.length != 0) ? consumes : null;
         this.produces = (produces.length != 0) ? produces : null;
         this.parameters = (!parameters.isEmpty()) ? parameters : null;
-        this.responses = new HashMap<>();
+        this.responses = new SwaggerResponseList();
 
         for (SwaggerResponse response : responses)
         {

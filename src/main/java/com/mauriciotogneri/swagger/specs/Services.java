@@ -1,15 +1,14 @@
 package com.mauriciotogneri.swagger.specs;
 
 import com.mauriciotogneri.swagger.model.SwaggerPath;
+import com.mauriciotogneri.swagger.model.SwaggerPathList;
 import com.mauriciotogneri.swagger.model.SwaggerTag;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class Services implements Iterable<Service>
@@ -33,9 +32,9 @@ public class Services implements Iterable<Service>
         return tags;
     }
 
-    public Map<String, SwaggerPath> paths(Definitions definitions)
+    public SwaggerPathList paths(Definitions definitions)
     {
-        Map<String, SwaggerPath> paths = new HashMap<>();
+        SwaggerPathList paths = new SwaggerPathList();
 
         for (Service service : this)
         {
