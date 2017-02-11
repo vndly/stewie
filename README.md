@@ -93,14 +93,12 @@ public interface SampleEndPoint
         @Default(JSON)
         String contentType;
         
-
         @Optional
         @Name(COOKIE)
         @Description("The session cookie")
         String cookie;
     }
     
-
     class ResponseHeaders
     {
         @Name("Token")
@@ -108,7 +106,6 @@ public interface SampleEndPoint
         String token;
     }
     
-
     class ParametersPath
     {
         @Description("The resource id")
@@ -116,32 +113,26 @@ public interface SampleEndPoint
         Long id;
     }
     
-
     class ParametersUrl
     {
         @Description("The filter switch")
         Boolean filter;
         
-
         @Description("The date to filter")
         Date date;
         
-
         @Description("The limit to filter")
         Double limit;
         
-
         @Description("The gender to filter")
         Gender gender;
     }
     
-
     @Description("The data parameter")
     class ParametersData
     {
         String email;
         
-
         String password;
     }
 }
@@ -167,7 +158,6 @@ public class Profile
 {
     Long id;
     
-
     @Format("email")
     String email;
 }
