@@ -5,15 +5,15 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.mauriciotogneri</groupId>
-    <artifactId>swagger-generator</artifactId>
-    <version>1.0.6</version>
-    <name>Swagger Generator</name>
+    <artifactId>stewie</artifactId>
+    <version>1.0.7</version>
+    <name>Stewie</name>
     <packaging>jar</packaging>
-    <url>https://github.com/mauriciotogneri/swagger-generator</url>
+    <url>https://github.com/mauriciotogneri/stewie</url>
     <licenses>
         <license>
             <name>MIT</name>
-            <url>https://github.com/mauriciotogneri/swagger-generator/blob/master/LICENSE.md</url>
+            <url>https://github.com/mauriciotogneri/stewie/blob/master/LICENSE.md</url>
             <distribution>site</distribution>
         </license>
     </licenses>
