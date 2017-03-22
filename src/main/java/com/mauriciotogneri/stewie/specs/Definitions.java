@@ -34,6 +34,11 @@ public class Definitions
                 if (!classes.containsKey(className))
                 {
                     classes.put(className, typeDef.clazz());
+
+                    for (Field field : typeDef.fields())
+                    {
+                        add(new TypeDefinition(field.getType()));
+                    }
                 }
             }
         }
