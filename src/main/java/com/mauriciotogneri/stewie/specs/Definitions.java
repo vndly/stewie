@@ -24,7 +24,7 @@ public class Definitions
             {
                 for (Field field : typeDef.fields())
                 {
-                    add(new TypeDefinition(field.getType()));
+                    add(new TypeDefinition(typeDef.componentType()));
                 }
             }
             else
