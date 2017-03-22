@@ -22,10 +22,7 @@ public class Definitions
         {
             if (typeDef.isArray())
             {
-                for (Field field : typeDef.fields())
-                {
-                    add(new TypeDefinition(typeDef.componentType()));
-                }
+                add(new TypeDefinition(typeDef.componentType()));
             }
             else
             {
