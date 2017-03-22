@@ -20,7 +20,7 @@ and the dependency:
     <dependency>
         <groupId>com.github.mauriciotogneri</groupId>
         <artifactId>stewie</artifactId>
-        <version>1.0.8</version>
+        <version>1.1.0</version>
     </dependency>
 ```
 
