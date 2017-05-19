@@ -5,6 +5,7 @@ import com.github.fge.jackson.JsonLoader;
 import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mauriciotogneri.jsonschema.Definitions;
 import com.mauriciotogneri.jsonschema.TypeDefinition;
@@ -19,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 public class Stewie
@@ -83,7 +85,12 @@ public class Stewie
             com.mauriciotogneri.jsonschema.JsonSchema jsonSchema = new com.mauriciotogneri.jsonschema.JsonSchema(typeDefinition);
             JsonObject schema = jsonSchema.schema();
 
-            result.put(typeDefinition.name(), schema.get("definitions").getAsJsonObject());
+            JsonObject schemaDefinitions = schema.get("definitions").getAsJsonObject();
+
+            for (Entry<String, JsonElement> entry : schemaDefinitions.entrySet())
+            {
+                result.put(entry.getKey(), entry.getValue().getAsJsonObject());
+            }
         }
 
         return result;
