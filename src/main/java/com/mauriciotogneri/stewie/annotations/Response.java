@@ -1,4 +1,4 @@
-package com.mauriciotogneri.stewie.annotations.endpoint;
+package com.mauriciotogneri.stewie.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

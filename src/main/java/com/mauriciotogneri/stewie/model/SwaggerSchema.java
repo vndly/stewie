@@ -1,9 +1,9 @@
 package com.mauriciotogneri.stewie.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.mauriciotogneri.stewie.specs.Annotations;
-import com.mauriciotogneri.stewie.specs.Definitions;
-import com.mauriciotogneri.stewie.specs.TypeDefinition;
+import com.mauriciotogneri.jsonschema.Annotations;
+import com.mauriciotogneri.jsonschema.Definitions;
+import com.mauriciotogneri.jsonschema.TypeDefinition;
 
 @SuppressWarnings("ALL")
 public class SwaggerSchema
@@ -162,14 +162,14 @@ public class SwaggerSchema
         }
         else if (typeDef.isArray())
         {
-            Class<?> componentType = typeDef.componentType();
-            SwaggerSchema items = SwaggerSchema.from(new TypeDefinition(componentType), new Annotations(componentType), definitions);
+            TypeDefinition componentType = typeDef.componentType();
+            SwaggerSchema items = SwaggerSchema.from(componentType, new Annotations(componentType), definitions);
 
             return new Builder(annotations).type(TYPE_ARRAY).items(items).build();
         }
         else
         {
-            definitions.add(typeDef);
+            definitions.addType(typeDef);
 
             return new Builder().ref(typeDef.name()).build();
         }

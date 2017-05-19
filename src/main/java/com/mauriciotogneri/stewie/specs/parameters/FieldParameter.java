@@ -1,10 +1,10 @@
 package com.mauriciotogneri.stewie.specs.parameters;
 
+import com.mauriciotogneri.jsonschema.Annotations;
+import com.mauriciotogneri.jsonschema.Definitions;
+import com.mauriciotogneri.jsonschema.TypeDefinition;
 import com.mauriciotogneri.stewie.model.SwaggerParameter;
 import com.mauriciotogneri.stewie.model.SwaggerSchema;
-import com.mauriciotogneri.stewie.specs.Annotations;
-import com.mauriciotogneri.stewie.specs.Definitions;
-import com.mauriciotogneri.stewie.specs.TypeDefinition;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

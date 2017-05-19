@@ -1,11 +1,11 @@
 package com.mauriciotogneri.stewie.specs.parameters;
 
-import com.mauriciotogneri.stewie.annotations.fields.Default;
+import com.mauriciotogneri.jsonschema.Annotations;
+import com.mauriciotogneri.jsonschema.Definitions;
+import com.mauriciotogneri.jsonschema.TypeDefinition;
+import com.mauriciotogneri.jsonschema.annotations.Default;
 import com.mauriciotogneri.stewie.model.SwaggerParameter;
 import com.mauriciotogneri.stewie.model.SwaggerSchema;
-import com.mauriciotogneri.stewie.specs.Annotations;
-import com.mauriciotogneri.stewie.specs.Definitions;
-import com.mauriciotogneri.stewie.specs.TypeDefinition;
 
 import java.lang.reflect.Field;
 
@@ -22,7 +22,7 @@ public class HeaderParameter
         Annotations annotations = new Annotations(field);
 
         this.name = annotations.name();
-        this.defaultValue = field.isAnnotationPresent(Default.class) ? field.getAnnotation(Default.class).value() : new String[0];
+        this.defaultValue = field.isAnnotationPresent(Default.class) ? new String[] {field.getAnnotation(Default.class).value()} : new String[0];
         this.clazz = field.getType();
         this.optional = annotations.optional();
         this.description = annotations.description();

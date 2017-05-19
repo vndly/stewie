@@ -1,8 +1,8 @@
 package com.mauriciotogneri.stewie.model;
 
-import com.mauriciotogneri.stewie.specs.Annotations;
-import com.mauriciotogneri.stewie.specs.Definitions;
-import com.mauriciotogneri.stewie.specs.TypeDefinition;
+import com.mauriciotogneri.jsonschema.Annotations;
+import com.mauriciotogneri.jsonschema.Definitions;
+import com.mauriciotogneri.jsonschema.TypeDefinition;
 
 import java.lang.reflect.Field;
 

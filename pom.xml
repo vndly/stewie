@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.mauriciotogneri</groupId>
     <artifactId>stewie</artifactId>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
     <name>Stewie</name>
     <packaging>jar</packaging>
     <url>https://github.com/mauriciotogneri/stewie</url>
@@ -51,6 +51,13 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
 
         <dependency>
@@ -63,6 +70,12 @@
             <groupId>com.github.fge</groupId>
             <artifactId>json-schema-validator</artifactId>
             <version>2.2.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.mauriciotogneri</groupId>
+            <artifactId>json-schema</artifactId>
+            <version>0.3.0</version>
         </dependency>
 
     </dependencies>

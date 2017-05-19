@@ -1,8 +1,9 @@
 package com.mauriciotogneri.stewie.specs;
 
-import com.mauriciotogneri.stewie.annotations.endpoint.EndPoint;
-import com.mauriciotogneri.stewie.annotations.endpoint.Parameters;
-import com.mauriciotogneri.stewie.annotations.endpoint.Responses;
+import com.mauriciotogneri.jsonschema.Definitions;
+import com.mauriciotogneri.stewie.annotations.EndPoint;
+import com.mauriciotogneri.stewie.annotations.Parameters;
+import com.mauriciotogneri.stewie.annotations.Responses;
 import com.mauriciotogneri.stewie.model.SwaggerEndPoint;
 import com.mauriciotogneri.stewie.model.SwaggerParameter;
 import com.mauriciotogneri.stewie.model.SwaggerResponse;

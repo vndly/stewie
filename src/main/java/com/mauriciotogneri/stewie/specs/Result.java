@@ -1,6 +1,6 @@
 package com.mauriciotogneri.stewie.specs;
 
-import com.mauriciotogneri.stewie.annotations.endpoint.Response;
+import com.mauriciotogneri.stewie.annotations.Response;
 
 public class Result
 {

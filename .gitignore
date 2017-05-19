@@ -1,9 +1,4 @@
-# IntelliJ
 .idea/*
 target
 *.iml
 config/*
-
-# MAC OS X
-.DS_Store
-*/.DS_Store

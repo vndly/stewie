@@ -5,11 +5,13 @@ import com.github.fge.jackson.JsonLoader;
 import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
+import com.google.gson.JsonObject;
+import com.mauriciotogneri.jsonschema.Definitions;
+import com.mauriciotogneri.jsonschema.TypeDefinition;
 import com.mauriciotogneri.stewie.model.Swagger;
 import com.mauriciotogneri.stewie.model.SwaggerDefinitions;
 import com.mauriciotogneri.stewie.model.SwaggerInfo;
 import com.mauriciotogneri.stewie.model.SwaggerPathList;
-import com.mauriciotogneri.stewie.specs.Definitions;
 import com.mauriciotogneri.stewie.specs.Services;
 
 import java.io.File;
@@ -58,7 +60,7 @@ public class Stewie
 
         Definitions definitions = new Definitions();
         SwaggerPathList paths = services.paths(definitions);
-        SwaggerDefinitions swaggerDefinitions = definitions.swaggerDefinitions();
+        SwaggerDefinitions swaggerDefinitions = swaggerDefinitions(definitions);
 
         Swagger swagger = new Swagger(
                 new SwaggerInfo(version, title),
@@ -70,6 +72,21 @@ public class Stewie
                 swaggerDefinitions);
 
         swagger.save(output);
+    }
+
+    private SwaggerDefinitions swaggerDefinitions(Definitions definitions)
+    {
+        SwaggerDefinitions result = new SwaggerDefinitions();
+
+        for (TypeDefinition typeDefinition : definitions)
+        {
+            com.mauriciotogneri.jsonschema.JsonSchema jsonSchema = new com.mauriciotogneri.jsonschema.JsonSchema(typeDefinition);
+            JsonObject schema = jsonSchema.schema();
+
+            result.put(typeDefinition.name(), schema.get("definitions").getAsJsonObject());
+        }
+
+        return result;
     }
 
     private void checkSchema(File output)

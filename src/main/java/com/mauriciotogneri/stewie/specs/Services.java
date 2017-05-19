@@ -1,5 +1,6 @@
 package com.mauriciotogneri.stewie.specs;
 
+import com.mauriciotogneri.jsonschema.Definitions;
 import com.mauriciotogneri.stewie.model.SwaggerPath;
 import com.mauriciotogneri.stewie.model.SwaggerPathList;
 import com.mauriciotogneri.stewie.model.SwaggerTag;
