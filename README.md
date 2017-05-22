@@ -1,3 +1,6 @@
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/mauriciotogneri/stewie/blob/master/LICENSE.md)
+[![Download](https://api.bintray.com/packages/mauriciotogneri/maven/stewie/images/download.svg)](https://bintray.com/mauriciotogneri/maven/stewie/_latestVersion)
+
 # Stewie
 A Java library that generates a **Swagger** configuration file based on the declared API.
 
