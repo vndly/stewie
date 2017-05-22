@@ -1,12 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project
     xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.mauriciotogneri</groupId>
+    <groupId>com.mauriciotogneri</groupId>
     <artifactId>stewie</artifactId>
-    <version>1.5.0</version>
+    <version>1.6.0</version>
     <name>Stewie</name>
     <packaging>jar</packaging>
     <url>https://github.com/mauriciotogneri/stewie</url>
@@ -31,6 +32,11 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.0.1</version>
                 <executions>
@@ -51,10 +57,17 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>bintray</id>
+            <url>https://api.bintray.com/maven/mauriciotogneri/maven/stewie/;publish=1</url>
+        </repository>
+    </distributionManagement>
+
     <repositories>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com</url>
         </repository>
     </repositories>
 
@@ -73,9 +86,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.mauriciotogneri</groupId>
-            <artifactId>json-schema</artifactId>
-            <version>0.6.0</version>
+            <groupId>com.mauriciotogneri</groupId>
+            <artifactId>jsonschema</artifactId>
+            <version>0.7.0</version>
         </dependency>
 
     </dependencies>
