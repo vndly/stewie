@@ -58,7 +58,7 @@ public class HeaderParameter
     {
         if (!clazz.equals(Object.class))
         {
-            Field[] fields = clazz.getDeclaredFields();
+            Field[] fields = clazz.getFields();
 
             HeaderParameter[] result = new HeaderParameter[fields.length];
 

@@ -31,7 +31,7 @@ public class SwaggerResponse
     {
         SwaggerHeaderResponseList result = new SwaggerHeaderResponseList();
 
-        for (Field field : headers.getDeclaredFields())
+        for (Field field : headers.getFields())
         {
             TypeDefinition typeDef = new TypeDefinition(field.getType());
             Annotations annotations = new Annotations(field);

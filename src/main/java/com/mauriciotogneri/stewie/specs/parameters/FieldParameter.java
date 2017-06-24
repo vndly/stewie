@@ -27,7 +27,7 @@ public class FieldParameter
 
         if (!clazz.equals(Object.class))
         {
-            for (Field field : clazz.getDeclaredFields())
+            for (Field field : clazz.getFields())
             {
                 TypeDefinition typeDef = new TypeDefinition(field.getType());
                 Annotations annotations = new Annotations(field);
