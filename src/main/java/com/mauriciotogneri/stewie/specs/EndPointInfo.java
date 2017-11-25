@@ -85,10 +85,8 @@ public class EndPointInfo
 
     private Class<?> getClass(File file)
     {
-        String base = "src/main/java/";
-
         String filePath = file.getAbsolutePath();
-        String classPath = filePath.substring(filePath.indexOf(base) + base.length()).replace("/", ".").replace(".java", "");
+        String classPath = filePath.substring(filePath.indexOf("/java/") + 6).replace("/", ".").replace(".java", "");
 
         try
         {

@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mauriciotogneri</groupId>
     <artifactId>stewie</artifactId>
-    <version>1.7.1</version>
+    <version>1.7.2</version>
     <name>Stewie</name>
     <packaging>jar</packaging>
     <url>https://github.com/mauriciotogneri/stewie</url>
