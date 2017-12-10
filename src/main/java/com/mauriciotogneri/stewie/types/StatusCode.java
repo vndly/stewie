@@ -40,6 +40,26 @@ public final class StatusCode
     public static final int REQUEST_TIMEOUT = 408;
     public static final int CONFLICT = 409;
     public static final int GONE = 410;
+    public static final int LENGTH_REQUIRED = 411;
+    public static final int PRECONDITION_FAILED = 412;
+    public static final int REQUEST_ENTITY_TOO_LARGE = 413;
+    public static final int REQUEST_URI_TOO_LONG = 414;
+    public static final int UNSUPPORTED_MEDIA_TYPE = 415;
+    public static final int REQUESTED_RANGE_NOT_SATISFIABLE = 416;
+    public static final int EXPECTATION_FAILED = 417;
+    public static final int IM_A_TEAPOT = 418;
+    public static final int ENHANCE_YOUR_CALM = 420;
+    public static final int UNPROCESSABLE_ENTITY = 422;
+    public static final int LOCKED = 423;
+    public static final int FAILED_DEPENDENCY = 424;
+    public static final int UPGRADED_REQUIRED = 426;
+    public static final int PRECONDITION_REQUIRED = 428;
+    public static final int TOO_MANY_REQUESTS = 429;
+    public static final int REQUEST_HEADER_FIELD_TOO_LARGE = 431;
+    public static final int NO_RESPONSE = 444;
+    public static final int RETRY_WITH = 449;
+    public static final int UNAVAILABLE_FOR_LEGAL_REASONS = 451;
+    public static final int CLIENT_CLOSED_REQUEST = 499;
 
     // server error
     public static final int INTERNAL_SERVER_ERROR = 500;
@@ -48,6 +68,14 @@ public final class StatusCode
     public static final int SERVICE_UNAVAILABLE = 503;
     public static final int GATEWAY_TIMEOUT = 504;
     public static final int HTTP_VERSION_NOT_SUPPORTED = 505;
+    public static final int VARIANT_ALSO_NEGOTIATES = 506;
+    public static final int INSUFFICIENT_STORAGE = 507;
+    public static final int LOOP_DETECTED = 508;
+    public static final int BANWIDTH_LIMIT_EXCEEDED = 509;
+    public static final int NOT_EXTENDED = 510;
+    public static final int NETWORK_AUTHENTICATION_REQUIRED = 511;
+    public static final int NETWORK_READ_TIMEOUT = 598;
+    public static final int NETWORK_CONNECT_TIMEOUT_ERROR = 599;
 
     private StatusCode()
     {
